@@ -1,0 +1,50 @@
+[
+  {
+    "key": "sum",
+    "name": "求和"
+  },
+  {
+    "key": "count",
+    "name": "计数"
+  },
+  {
+    "key": "distinct",
+    "name": "去重"
+  },
+  {
+    "key": "average",
+    "name": "平均值"
+  },
+  {
+    "key": "variance",
+    "name": "方差"
+  },
+  {
+    "key": "deviation",
+    "name": "标准差"
+  },
+  {
+    "key": "max",
+    "name": "最大值"
+  },
+  {
+    "key": "min",
+    "name": "最小值"
+  },
+  {
+    "key": "last",
+    "name": "上一笔"
+  },
+  {
+    "key": "increment_count",
+    "name": "连续递增次数"
+  },
+  {
+    "key": "reduced_count",
+    "name": "连续递减次数"
+  },
+  {
+    "key": "multi_dimension",
+    "name": "多维度统计"
+  }
+]

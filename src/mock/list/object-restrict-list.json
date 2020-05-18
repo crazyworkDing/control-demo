@@ -1,0 +1,10 @@
+[
+  {
+    "key": "last",
+    "name": "上一次"
+  },
+  {
+    "key": "current",
+    "name": "当前"
+  }
+]

@@ -1,0 +1,59 @@
+@import './login.scss';
+.template-form{
+  padding: 10px;
+
+  .mt0 {
+    margin-bottom: 0;
+  }
+
+  .ant-form-item-label label::after {
+    content: '';
+  }
+
+  .ant-timeline-item-content {
+    background: #eee;
+    padding: 10px;
+    margin-top: 5px;
+  }
+
+  .plus-wrapper {
+    position: absolute;
+    top: 5px;
+    right: -20px;
+    cursor: pointer;
+    z-index: 9999;
+  }
+
+  .minus-wrapper {
+    position: absolute;
+    top: 25px;
+    right: -20px;
+    cursor: pointer;
+    z-index: 9999;
+  }
+
+  .plus-wrapper :hover, .minus-wrapper :hover{
+    color: red;
+  }
+  
+  .relative {
+    position: relative;
+  }
+
+  .cursor{
+    cursor: pointer;
+  }
+
+  .form-item-side-left{
+    width: 30%;
+  }
+
+  .form-item-side-right{
+    width: 70%;
+  }
+}
+
+.card-wrapper {
+  border-radius: 5px;
+  margin: 10px 5px;
+}

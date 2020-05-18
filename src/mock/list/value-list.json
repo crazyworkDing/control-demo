@@ -1,0 +1,26 @@
+[
+  {
+    "key": "number",
+    "name": "数值"
+  },
+  {
+    "key": "enum",
+    "name": "枚举值"
+  },
+  {
+    "key": "string",
+    "name": "字符串"
+  },
+  {
+    "key": "bool",
+    "name": "布尔型"
+  },
+  {
+    "key": "timestamp",
+    "name": "时间"
+  },
+  {
+    "key": "period",
+    "name": "时间段"
+  }
+]

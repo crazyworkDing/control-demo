@@ -1,0 +1,42 @@
+[
+  {
+    "key": "no_unit",
+    "name": "无单位"
+  },
+  {
+    "key": "yuan",
+    "name": "元"
+  },
+  {
+    "key": "times",
+    "name": "次"
+  },
+  {
+    "key": "ge",
+    "name": "个"
+  },
+  {
+    "key": "piece",
+    "name": "张"
+  },
+  {
+    "key": "second",
+    "name": "秒"
+  },
+  {
+    "key": "minute",
+    "name": "分钟"
+  },
+  {
+    "key": "hour",
+    "name": "小时"
+  },
+  {
+    "key": "day",
+    "name": "天"
+  },
+  {
+    "key": "month",
+    "name": "月"
+  }
+]

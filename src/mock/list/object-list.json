@@ -1,0 +1,62 @@
+[
+  {
+    "key": "user_id",
+    "name": "用户号"
+  },
+  {
+    "key": "merchant_id",
+    "name": "商户号"
+  },
+  {
+    "key": "payee_id",
+    "name": "收款方卡号"
+  },
+  {
+    "key": "payee_name",
+    "name": "收款方姓名"
+  },
+  {
+    "key": "payer_id",
+    "name": "付款方卡号"
+  },
+  {
+    "key": "payer_name",
+    "name": "付款方姓名"
+  },
+  {
+    "key": "terminal",
+    "name": "终端设备"
+  },
+  {
+    "key": "password_error",
+    "name": "密码错误"
+  },
+  {
+    "key": "transaction_amount",
+    "name": "交易金额"
+  },
+  {
+    "key": "transaction_count",
+    "name": "交易次数"
+  },
+  {
+    "key": "transaction_time",
+    "name": "交易时间"
+  },
+  {
+    "key": "acount_level",
+    "name": "账户级别"
+  },
+  {
+    "key": "pay_ip",
+    "name": "支付IP"
+  },
+  {
+    "key": "phone_number",
+    "name": "银行预留手机号"
+  },
+  {
+    "key": "id_number",
+    "name": "身份证号"
+  }
+]

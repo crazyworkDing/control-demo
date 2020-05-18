@@ -1,0 +1,10 @@
+[
+  {
+    "key": "judge",
+    "name": "判断型"
+  },
+  {
+    "key": "compare",
+    "name": "比较型"
+  }
+]
