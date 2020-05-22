@@ -10,7 +10,7 @@
           </a-col>
           <a-col :md="6" :sm="12">
             <a-form-item label="创建人" style="margin-left:8px">
-              <a-input placeholder="请输入创建人查询" v-model="queryParam.createBy"></a-input>
+              <a-input placeholder="请输入创建人查询" v-model="queryParam.userName"></a-input>
             </a-form-item>
           </a-col>
 

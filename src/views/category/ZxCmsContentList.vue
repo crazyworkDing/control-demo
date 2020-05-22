@@ -36,7 +36,7 @@
                  <a-select placeholder="请选择文章类型" default-value="请选择" v-model="queryParam.contentType">
                 <a-select-option  value="1">文章</a-select-option>
                 <a-select-option  value="2">文件</a-select-option>
-                <!-- <a-select-option  value="3">链接</a-select-option> -->
+                <a-select-option  value="3">链接</a-select-option>
               </a-select>
               </a-form-item>
             </a-col>

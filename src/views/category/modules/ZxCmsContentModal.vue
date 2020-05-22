@@ -22,6 +22,18 @@
           <j-dict-select-tag type="list" v-decorator="['isPublish', validatorRules.isPublish]" :trigger-change="true" dictCode="ispublish" placeholder="请选择是否发布"/>
         </a-form-item>
 
+
+        <a-form-item label="栏目来源" :labelCol="labelCol" :wrapperCol="wrapperCol" >
+          <j-tree-select
+            ref="treeSelect"
+            placeholder="请选择栏目来源"
+            v-decorator="['categoryId', validatorRules.categoryId]"
+            dict="zx_cms_category,category_title,id"
+            pidField="pid"
+             pidValue="0"
+            hasChildField="has_child">
+          </j-tree-select>
+        </a-form-item>
         <a-form-item label="文章来源" :labelCol="labelCol" :wrapperCol="wrapperCol">
           <a-input v-decorator="[ 'contentSource', validatorRules.contentSource]" placeholder="请输入文章来源"></a-input>
         </a-form-item>
@@ -35,6 +47,7 @@
               <a-select placeholder="请选择文章类型"  type="list" v-on:change = "handleListTypeChanged" v-decorator="['contentType', validatorRules.contentType]" :trigger-change="true" >
                 <a-select-option  value="1">文章</a-select-option>
                 <a-select-option  value="2">文件</a-select-option>
+                <a-select-option  value="3">链接</a-select-option>
               </a-select>
             </a-form-item>
 
@@ -64,13 +77,13 @@
           <a-input-number v-decorator="[ 'contentHit', validatorRules.contentHit]" placeholder="请输入点击次数" style="width: 100%"/>
         </a-form-item>-->
 
-        <!--<a-form-item  label="文章跳转链接地址" :labelCol="labelCol" :wrapperCol="wrapperCol" v-if="contentUrlShow">
-          <a-input v-decorator="[ 'contentUrl', validatorRules.contentUrl]" placeholder="请输入文章跳转链接地址"></a-input>
-        </a-form-item>-->
+        <a-form-item  label="文章跳转链接地址" :labelCol="labelCol" :wrapperCol="wrapperCol"  v-if="contentImgShow">
+          <a-input v-decorator="[ 'contentImg']" placeholder="请输入文章跳转链接地址"></a-input>
+        </a-form-item>
 
-        <a-form-item label="文章缩略图" :labelCol="labelCol" :wrapperCol="wrapperCol">
+        <!-- <a-form-item label="文章缩略图" :labelCol="labelCol" :wrapperCol="wrapperCol"> -->
          <!-- <j-image-upload class="avatar-uploader" text="上传" v-model="fileList" ></j-image-upload>-->
-            <a-upload
+            <!-- <a-upload
             listType="picture-card"
             class="avatar-uploader"
             :showUploadList="false"
@@ -86,7 +99,7 @@
               <div class="ant-upload-text">上传</div>
             </div>
           </a-upload>
-        </a-form-item>
+        </a-form-item> -->
         
 
       <a-form-item label="文件" :labelCol="labelCol" :wrapperCol="wrapperCol"  v-if="fileShow" >
@@ -121,13 +134,13 @@
   import { ACCESS_TOKEN } from "@/store/mutation-types"
   import Vue from 'vue'
   import JUpload from '@/components/jeecg/JUpload'
+  import {queryzxCmsCategory,queryzxCmsCategoryChildList } from '@/api/api'
+  import JTreeSelect from '@/components/jeecg/JTreeSelect'
 
  const getFileName=(path)=>{
-    if(path.lastIndexOf("\\")>=0){
-      let reg=new RegExp("\\\\","g");
-      path = path.replace(reg,"/");
-    }
-    return path.substring(path.lastIndexOf("/")+1);
+    var index = path.lastIndexOf("/")
+    path = path.substring(index+1,path.length);
+    return path;
   }
  const uidGenerator=()=>{
       return '-'+parseInt(Math.random()*10000+1,10);
@@ -137,7 +150,8 @@
     components: { 
       JDictSelectTag,
       JImageUpload,
-      JEditor
+      JEditor,
+      JTreeSelect
     },
     data () {
 
@@ -149,11 +163,13 @@
         width:1200,
         isShow: false,
         fileShow: false,
+        contentImgShow: false,
         visible: false,
         modelData: {
           article_type: null,
           isshow: false,
           fileShow: false,
+          contentImgShow: false,
         },
 
         model: {
@@ -229,8 +245,9 @@
 
       add () {
         this.picUrl = "";
-        this.isShow=false;
-        this.fileShow=false;
+        this.isShow = false;
+        this.fileShow = false;
+        this.contentImgShow = false; 
         this.edit({});
         this.fileList=[];
         
@@ -238,11 +255,11 @@
       edit (record) {
         this.form.resetFields();
         this.model = Object.assign({}, record);
-        this.picUrl = this.model.contentImg;
+        // this.picUrl = this.model.contentImg;
         this.visible = true;
 
         this.$nextTick(() => {
-          this.form.setFieldsValue(pick(this.model,'contentTitle','contentUrl','contentDetails','contentKeyword','contentDescription','contentImg','contentSort','contentSource','isPublish','contentType','delFlag','contentHit'))
+          this.form.setFieldsValue(pick(this.model,'contentTitle','contentUrl','contentDetails','contentKeyword','contentDescription','contentImg','contentSort','contentSource','isPublish','contentType','delFlag','contentHit','categoryId'))
            //this.form.setFieldsValue({contentType:'1'})
         })
         if(this.model.contentType == 1){
@@ -256,7 +273,13 @@
         }else{
           this.fileShow = false;
         }
-        
+
+        if(this.model.contentType == 3){
+          this.contentImgShow = true;
+        }else{
+          this.contentImgShow = false;
+        }
+
         if(record.contentUrl == ""){
           this.fileList = []
           return
@@ -456,10 +479,16 @@
          }else{
            this.fileShow = false;
          }
+         if(attr == 3){
+          this.contentImgShow = true;
+        }else{
+          this.contentImgShow = false;
+        }
 
      }
       
-    }
+    },
+    
   }
 </script>
 <style scoped>

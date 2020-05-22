@@ -322,8 +322,8 @@
           }
         });
       },
-      loadUserRoles(userid){
-        queryUserRole({userid:userid}).then((res)=>{
+      async loadUserRoles(userid){
+        await queryUserRole({userid:userid}).then((res)=>{
           if(res.success){
             this.selectedRole = res.result[0];
           }else{
@@ -345,7 +345,7 @@
 
         this.edit({});
       },
-      edit (record) {
+      async edit (record) {
         console.log(this.info())
         this.resetScreenSize(); // 调用此方法,根据屏幕宽度自适应调整抽屉的宽度
         let that = this;
@@ -354,15 +354,17 @@
         that.form.resetFields();
 
         if(record.hasOwnProperty("id")){
-          that.loadUserRoles(record.id);
+          await that.loadUserRoles(record.id);
           //that.initFileList(record.signFile);
           that.initFileList(record.id);
         }
         that.userId = record.id;
         that.visible = true;
-        that.model = Object.assign({}, record);
+        
+        that.model = Object.assign({}, record, {selectedRole: that.selectedRole});
+       
         that.$nextTick(() => {
-          that.form.setFieldsValue(pick(this.model,'username','depart','post','telephone','email'))
+          that.form.setFieldsValue(pick(this.model,'username','depart','post','telephone','email','selectedRole'))
 
         });
       },
@@ -384,7 +386,7 @@
           if (!err) {
             that.confirmLoading = true;
             let formData = Object.assign(this.model, values, {selectedRole: that.selectedRole});
-            values.selectedroles= this.selectedRole;
+            values.selectedroles= values.selectedRole
             if(that.fileList.length>0)
             {
                let arrId = [];

@@ -79,6 +79,12 @@
             dataIndex: 'usercode'
           },
           {
+            title: '部门',
+            width: '15%',
+            align: 'center',
+            dataIndex: 'depart'
+          },
+          {
             title: '职务',
             width: '15%',
             align: 'center',

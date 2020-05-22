@@ -23,9 +23,28 @@
               dictCode="member_type"
             />
           </a-form-item>
-          <a-form-item label="经营区域" :labelCol="{span: 8}" :wrapperCol="{span: 16}">
+
+          <a-form-item
+          prop="businessScope"
+           :labelCol="{span: 8}" :wrapperCol="{span: 16}"
+          label="经营区域"
+          :hidden="false"
+          hasFeedback
+        >
+          <el-cascader
+            v-model="businessScope"
+            :options="selectOption.city"
+            :props="{ expandTrigger: 'hover',label:'title' }"
+            style="width: 100%"
+            placeholder="请选择经营地区"
+            :show-all-levels="false"
+            clearable
+            filterable
+          ></el-cascader>
+        </a-form-item>
+          <!-- <a-form-item label="经营区域" :labelCol="{span: 8}" :wrapperCol="{span: 16}">
             <a-input v-decorator="['businessScope']" />
-          </a-form-item>
+          </a-form-item> -->
           <a-form-item label="注册地址" :labelCol="{span: 8}" :wrapperCol="{span: 16}">
             <a-input v-decorator="['regAddress']" />
           </a-form-item>
@@ -130,6 +149,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 import { getAction, downFile } from '@/api/manage'
 import { editOrgan } from '@/api/user'
 import { mapGetters } from "vuex";
@@ -143,11 +163,15 @@ export default {
       fileUpload: this.proxyUrl + '/zx/common/upload',
       form: this.$form.createForm(this),
       preview: {},
+      businessScope: [],
       id: '',
       // sysuser: '',
       labelCol: {
         xs: { span: 24 },
         sm: { span: 5 }
+      },
+       selectOption: {
+        city: []
       },
       wrapperCol: {
         xs: { span: 24 },
@@ -252,6 +276,9 @@ export default {
               filesId += this.fileList[i].id + ','
             }
           }
+          let formData = Object.assign(this.model, values, {
+            businessScope: that.businessScope[that.businessScope.length - 1]
+          })
           params = Object.assign({}, values, {files: filesId, id: this.id})
           editOrgan(params).then(res => {
             if (res.success) {
@@ -283,6 +310,7 @@ export default {
         if (res.success) {
           // this.sysuser = res.result;
           this.id = res.result.id;
+          let flagId = res.result.businessScope
           this.form.setFieldsValue(
             pick(
               res.result,
@@ -308,11 +336,28 @@ export default {
               'eleChannel'
             )
           )
+          let businessScope = []
+        this.selectOption.city.forEach(res => {
+          if (!res.children) {
+            return
+          }
+          res.children.forEach(res2 => {
+            if (res2.id == flagId) {
+              businessScope = [res.id, res2.id]
+            }
+          })
+        })
+        this.businessScope = businessScope
         } else {
           console.log(res.message)
         }
       })
     }
+  },
+  mounted() {
+    axios.get('/city.json').then(res => {
+      this.selectOption.city = res.data.result
+    })
   }
 }
 </script>

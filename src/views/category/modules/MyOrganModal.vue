@@ -56,13 +56,13 @@
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
-          label="机构编码"
+          label="机构代码"
           :hidden="false"
           hasFeedback
         >
           <a-input
             id="organCode"
-            placeholder="请输入机构编码"
+            placeholder="请输入机构代码"
             disabled v-decorator="['organCode', validatorRules.organCode ]"
           />
         </a-form-item>

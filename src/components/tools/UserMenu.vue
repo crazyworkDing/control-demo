@@ -143,8 +143,8 @@
         });
       },
       updatePassword(){
-        let username = this.userInfo().username
-        this.$refs.userPassword.show(username)
+        let telephone = this.userInfo().telephone
+        this.$refs.userPassword.show(telephone)
       },
       updateCurrentDepart(){
         this.$refs.departSelect.show()

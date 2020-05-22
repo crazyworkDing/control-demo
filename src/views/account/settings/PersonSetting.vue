@@ -12,7 +12,7 @@
             <a-input v-decorator="[ 'username',  validatorRules.username]" disabled />
           </a-form-item>
 
-           <a-form-item label="机构" :labelCol="{span: 5}" :wrapperCol="{span: 19}">
+          <a-form-item label="机构" :labelCol="{span: 5}" :wrapperCol="{span: 19}">
             <a-input placeholder="请输入您的机构" v-decorator="[ 'organName' ]" disabled></a-input>
           </a-form-item>
 
@@ -24,8 +24,6 @@
             <a-input placeholder="请输入您的职务" v-decorator="[ 'post' ]"></a-input>
           </a-form-item>
 
-           
-          
           <a-form-item label="手机号码" :labelCol="{span: 5}" :wrapperCol="{span: 19}">
             <a-input placeholder="11 位手机号" v-decorator="[ 'telephone', validatorRules.telephone ]"></a-input>
           </a-form-item>
@@ -34,7 +32,7 @@
              :wrapperCol="{span: 19}">
             <a-input v-decorator="[ 'linePhone', ]"/>
           </a-form-item>-->
-          
+
           <a-form-item
             label="电子邮箱"
             :required="false"
@@ -43,7 +41,7 @@
           >
             <a-input v-decorator="[ 'email', validatorRules.email ]" />
           </a-form-item>
-           
+
           <!-- <a-form-item label="密码" :labelCol="{span: 5}" :wrapperCol="{span: 19}">
             <a-input
               type="password"
@@ -59,7 +57,7 @@
               autocomplete="false"
               placeholder="确认密码"
             />
-          </a-form-item> -->
+          </a-form-item>-->
           <a-form-item>
             <a-button
               size="large"
@@ -81,6 +79,7 @@ import { getAction, httpAction } from '@/api/manage'
 import { checkOnlyUser } from '@/api/api'
 import { mixinDevice } from '@/utils/mixin.js'
 import pick from 'lodash.pick'
+import { duplicateCheck } from "@/api/api";
 
 export default {
   components: {},
@@ -92,7 +91,10 @@ export default {
       model: {},
       validatorRules: {
         telephone: {
-          rules: [{ required: true, pattern: /^1[3456789]\d{9}$/, message: '请输入正确的手机号', trigger: 'blur' }]
+          rules: [
+            { required: true, pattern: /^1[3456789]\d{9}$/, message: '请输入正确的手机号', trigger: 'blur' },
+            { validator: this.validatePhone }
+          ]
         },
         linePhone: {},
         email: {
@@ -111,6 +113,32 @@ export default {
     this.initObj()
   },
   methods: {
+    validatePhone(rule, value, callback) {
+      if (!value) {
+        callback()
+      } else {
+        //update-begin--Author:kangxiaolin  Date:20190826 for：[05] 手机号不支持199号码段--------------------
+        if (new RegExp(/^1[3|4|5|7|8|9][0-9]\d{8}$/).test(value)) {
+          //update-end--Author:kangxiaolin  Date:20190826 for：[05] 手机号不支持199号码段--------------------
+
+          var params = {
+            tableName: 'sys_user',
+            fieldName: 'telephone',
+            fieldVal: value,
+            dataId: this.sysuser.id
+          }
+          duplicateCheck(params).then(res => {
+            if (res.success) {
+              callback()
+            } else {
+              callback('手机号已存在!')
+            }
+          })
+        } else {
+          callback('请输入正确格式的手机号码!')
+        }
+      }
+    },
     initObj() {
       let that = this
       getAction('/sys/user/queryObj').then(res => {
@@ -119,7 +147,9 @@ export default {
           that.$nextTick(() => {
             // that.form.setFieldsValue({username: that.sysuser.username,telephone: that.sysuser.telephone,
             //  email: that.sysuser.email})
-            that.form.setFieldsValue(pick(that.sysuser, 'username', 'telephone','email','post','depart','organName'))
+            that.form.setFieldsValue(
+              pick(that.sysuser, 'username', 'telephone', 'email', 'post', 'depart', 'organName')
+            )
           })
         } else {
           console.log(res.message)
