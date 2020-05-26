@@ -87,16 +87,16 @@ export default {
             
 
             // 默认选中第一条数据、默认展开所有第一级
-            if (res.result.length > 0) {
-              this.expandedKeys = []
-              res.result.forEach((item, index) => {
-                if (index === 0) {
-                  this.selectedKeys = [item.id]
-                  this.emitInput(item.id)
-                }
-                this.expandedKeys.push(item.id)
-              })
-            }
+            // if (res.result.length > 0) {
+            //   this.expandedKeys = []
+            //   res.result.forEach((item, index) => {
+            //     if (index === 0) {
+            //       this.selectedKeys = [item.id]
+            //       this.emitInput(item.id)
+            //     }
+            //     this.expandedKeys.push(item.id)
+            //   })
+            // }
           } else {
             this.$message.warn('机构查询失败：' + res.message)
             console.error('机构查询失败:', res)

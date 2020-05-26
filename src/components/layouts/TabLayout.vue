@@ -36,7 +36,8 @@
   import Contextmenu from '@/components/menu/Contextmenu'
   import { mixin, mixinDevice } from '@/utils/mixin.js'
   import { triggerWindowResizeEvent } from '@/utils/util'
-
+  import { mapGetters } from "vuex";
+  import { queryFile } from "@/api/api";
   const indexKey = '/dashboard/analysis'
 
   export default {
@@ -94,15 +95,25 @@
       this.pageList.push(this.$route)
       this.linkList.push(this.$route.fullPath)
       this.activePage = this.$route.fullPath
-      this.$notification.warning({
-        message: '请注意完善个人页信息',
-        placement: 'topLeft',
-        // description:
-        //   'This is the content of the notification. This is the content of the notification. This is the content of the notification.',
-        onClick: () => {
-          console.log('Notification Clicked!');
-        },
-      });
+      let that = this;
+      queryFile({userid: this.userInfo().id}).then(res => {
+        if(res.success) {
+          if (!res.result.length) {
+            that.$notification.warning({
+              message: '请注意完善个人页信息',
+              placement: 'topLeft',
+              // description:
+              //   'This is the content of the notification. This is the content of the notification. This is the content of the notification.',
+              onClick: () => {
+                console.log('Notification Clicked!');
+              },
+            });
+          }
+        } else{
+        }
+        
+      })
+      
     },
     watch: {
       '$route': function(newRoute) {
@@ -134,6 +145,9 @@
       }
     },
     methods: {
+      ...mapGetters([
+        "userInfo"
+      ]),
       changePage(key) {
         this.activePage = key
       },

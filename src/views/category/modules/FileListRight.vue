@@ -128,6 +128,7 @@ export default {
       immediate: true,
       handler(organId) {
         this.dataSource = []
+        this.cardLoading = false
         this.loadData(1, organId)
       }
     }
@@ -186,6 +187,7 @@ export default {
     },
     loadData(pageNum, organId) {
       if (!organId) {
+        this.dataSource = []
         return
       }
       //加载数据 若传入参数1则加载第一页的内容

@@ -162,6 +162,7 @@
                           :multiple="true"
                           :action="fileUpload"
                           :headers="tokenHeaders"
+                          :data="{type: 1}"
                           :on-change="handleChange"
                           :file-list="fileList"
                           :on-success="uploadSuccess"

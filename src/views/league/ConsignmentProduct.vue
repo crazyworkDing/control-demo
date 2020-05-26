@@ -10,8 +10,13 @@
             </a-form-item>
           </a-col>
           <a-col :xl="6" :lg="7" :md="8" :sm="24">
-            <a-form-item label="发行机构代码">
-              <a-input placeholder="请输入发行者" v-model="queryParam.issuerCode"></a-input>
+            <a-form-item label="产品编号">
+              <a-input placeholder="请输入产品编号" v-model="queryParam.issuerCode"></a-input>
+            </a-form-item>
+          </a-col>
+          <a-col :xl="6" :lg="7" :md="8" :sm="24">
+            <a-form-item label="发布时间">
+              <a-range-picker />
             </a-form-item>
           </a-col>
           <a-col :xl="6" :lg="7" :md="8" :sm="24">
@@ -94,30 +99,6 @@
             @click="uploadFile(text)"
           >下载</a-button>
         </template>
-
-        <span slot="action" slot-scope="text, record">
-          <a @click="handleEdit(record)">编辑</a>
-
-          <a-divider type="vertical" />
-          <a-dropdown>
-            <a class="ant-dropdown-link">
-              更多
-              <a-icon type="down" />
-            </a>
-            <a-menu slot="overlay">
-              <a-menu-item>
-                <a-popconfirm title="确定删除吗?" @confirm="() => handleDelete(record.id)">
-                  <a>删除</a>
-                </a-popconfirm>
-              </a-menu-item>
-              <a-menu-item>
-                <a-popconfirm title="确定删除吗?" @confirm="() => submitAndPass(record)">
-                  <a>提交审核</a>
-                </a-popconfirm>
-              </a-menu-item>
-            </a-menu>
-          </a-dropdown>
-        </span>
       </a-table>
     </div>
 
@@ -131,7 +112,7 @@ import ZxProductModal from './modules/ZxProductModal'
 import JDictSelectTag from '@/components/dict/JDictSelectTag.vue'
 import { submitProduct } from "@/api/user";
 export default {
-  name: 'ZxProductList',
+  name: 'ConsignmentProduct',
   mixins: [JeecgListMixin],
   components: {
     JDictSelectTag,
@@ -166,12 +147,6 @@ export default {
           title: '产品运作模式',
           align: 'center',
           dataIndex: 'operationMode'
-        },
-        {
-          title: '操作',
-          dataIndex: 'action',
-          align: 'center',
-          scopedSlots: { customRender: 'action' }
         }
       ],
       url: {

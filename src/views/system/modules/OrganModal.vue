@@ -44,7 +44,7 @@
           hasFeedback
         >
           <j-dict-select-tag
-            v-decorator="['memberType' ]"
+            v-decorator="['memberType',validatorRules.memberType ]"
             dict-code="	member_type"
             placeholder="请选择机构类型"
             :trigger-change="true"
@@ -303,20 +303,20 @@ export default {
       },
       confirmLoading: false,
       validatorRules: {
-        fullName: { rules: [] },
+        fullName: { rules: [{ required: true, message: '机构全称不可为空' }] },
         abbreviateName: { rules: [] },
-        memberType: { rules: [] },
-        businessScope: { rules: [] },
+        memberType: { rules: [{ required: true, message: '请选择机构类型' }] },
+        businessScope: { rules: [{ required: false, message: '请选择经营区域' }] },
         regAddress: { rules: [] },
         businessAddress: { rules: [] },
-        corporate: { rules: [] },
+        corporate: { rules: [{ required: true, message: '法定代表人不可为空' }] },
         businessPhone: { rules: [] },
         depart: { rules: [] },
         departLeader: { rules: [] },
         telephone: { rules: [] },
         linePhone: { rules: [] },
         regCapital: { rules: [] },
-        organCode: { rules: [] },
+        organCode: { rules: [{ required: true, message: '机构代码不可为空' }] },
         depositScale: { rules: [] },
         volumeScale: { rules: [] },
         selfScale: { rules: [] },
