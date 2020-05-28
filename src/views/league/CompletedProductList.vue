@@ -11,12 +11,12 @@
           </a-col>
           <a-col :xl="6" :lg="7" :md="8" :sm="24">
             <a-form-item label="产品编号">
-              <a-input placeholder="请输入产品编号" v-model="queryParam.issuerCode"></a-input>
+              <a-input placeholder="请输入产品编号" v-model="queryParam.productNum"></a-input>
             </a-form-item>
           </a-col>
           <a-col :xl="6" :lg="7" :md="8" :sm="24">
             <a-form-item label="发布时间">
-              <a-range-picker />
+              <a-range-picker v-model="queryParam.releaseTime"/>
             </a-form-item>
           </a-col>
           <a-col :xl="6" :lg="7" :md="8" :sm="24">
@@ -41,7 +41,7 @@
 
     <!-- 操作按钮区域 -->
     <div class="table-operator">
-      <a-button @click="handleAdd" type="primary" icon="plus">新增</a-button>
+      <!-- <a-button @click="handleAdd" type="primary" icon="plus">新增</a-button> -->
       <a-dropdown v-if="selectedRowKeys.length > 0">
         <a-menu slot="overlay">
           <a-menu-item key="1" @click="batchDel">
@@ -57,11 +57,11 @@
 
     <!-- table区域-begin -->
     <div>
-      <div class="ant-alert ant-alert-info" style="margin-bottom: 16px;">
+      <!-- <div class="ant-alert ant-alert-info" style="margin-bottom: 16px;">
         <i class="anticon anticon-info-circle ant-alert-icon"></i> 已选择
         <a style="font-weight: 600">{{ selectedRowKeys.length }}</a>项
         <a style="margin-left: 24px" @click="onClearSelected">清空</a>
-      </div>
+      </div> -->
 
       <a-table
         ref="table"
@@ -72,8 +72,7 @@
         :dataSource="dataSource"
         :pagination="ipagination"
         :loading="loading"
-        :rowSelection="{fixed:true,selectedRowKeys: selectedRowKeys, onChange: onSelectChange}"
-        @change="handleTableChange"
+        
       >
         <template slot="htmlSlot" slot-scope="text">
           <div v-html="text"></div>
@@ -101,7 +100,7 @@
         </template>
 
         <span slot="action" slot-scope="text, record">
-          <a @click="handleEdit(record)">详情</a>
+          <a @click="handleDetail(record)">详情</a>
 
           <a-divider type="vertical" />
           <a-dropdown v-has="'userRole'">
@@ -111,11 +110,17 @@
             </a>
             <a-menu slot="overlay">
               <a-menu-item>
-                <a>编辑</a>
+                <a @click="handleEdit(record)">编辑</a>
+              </a-menu-item>
+              <a-menu-item>
+                <a @click="handleEdit2(record)">转为募集期</a>
+              </a-menu-item>
+              <a-menu-item>
+                <a @click="handleEdit3(record)">转为存续期</a>
               </a-menu-item>
               <a-menu-item>
                 <a-popconfirm title="确定撤销吗?" @confirm="() => submitAndPass(record)">
-                  <a>撤销</a>
+                  <a @click="handleDelete(record.id)">撤销</a>
                 </a-popconfirm>
               </a-menu-item>
             </a-menu>
@@ -124,13 +129,13 @@
       </a-table>
     </div>
 
-    <zxProduct-modal ref="modalForm" @ok="modalFormOk"></zxProduct-modal>
+    <completed-product-modal ref="modalForm" @ok="modalFormOk"></completed-product-modal>
   </a-card>
 </template>
 
 <script>
 import { JeecgListMixin } from '@/mixins/JeecgListMixin'
-import ZxProductModal from './modules/ZxProductModal'
+import CompletedProductModal from './modules/CompletedProductModal'
 import JDictSelectTag from '@/components/dict/JDictSelectTag.vue'
 import { submitProduct } from "@/api/user";
 export default {
@@ -138,7 +143,7 @@ export default {
   mixins: [JeecgListMixin],
   components: {
     JDictSelectTag,
-    ZxProductModal
+    CompletedProductModal
   },
   data() {
     return {
@@ -151,24 +156,39 @@ export default {
           dataIndex: 'productName'
         },
         {
-          title: '发行机构代码',
+          title: '会员名称',
           align: 'center',
-          dataIndex: 'issuerCode'
+          dataIndex: 'organName'
         },
         {
-          title: '产品审批人姓名',
+          title: '产品编号',
           align: 'center',
-          dataIndex: 'approverName'
+          dataIndex: 'productNum'
         },
         {
-          title: '资金投向地区',
+          title: '产品状态',
           align: 'center',
-          dataIndex: 'investmentinArea'
+          dataIndex: 'status'
         },
         {
-          title: '产品运作模式',
+          title: '产品总规模',
           align: 'center',
-          dataIndex: 'operationMode'
+          dataIndex: 'productSize'
+        },
+        {
+          title: '已售额度',
+          align: 'center',
+          dataIndex: 'soldLimit'
+        },
+        {
+          title: '发布时间',
+          align: 'center',
+          dataIndex: 'releaseTime'
+        },
+        {
+          title: '关键节点',
+          align: 'center',
+          dataIndex: 'keyNode'
         },
         {
           title: '操作',
@@ -194,6 +214,21 @@ export default {
   },
   methods: {
     initDictConfig() {},
+    handleDetail(record) {
+      this.$refs.modalForm.title = '详情'
+      this.$refs.modalForm.edit(record);
+      this.$refs.modalForm.disabled = true;
+    },
+    handleEdit2(record) {
+      this.$refs.modalForm.title = '转为募集期'
+      this.$refs.modalForm.edit(record);
+      this.$refs.modalForm.disabled = false;
+    },
+    handleEdit3(record) {
+      this.$refs.modalForm.title = '转为存续期'
+      this.$refs.modalForm.edit(record);
+      this.$refs.modalForm.disabled = false;
+    },
     submitAndPass(params) {
       console.log(this.selectedRowKeys);
       submitProduct(params).then(res => {

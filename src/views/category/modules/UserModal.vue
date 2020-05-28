@@ -345,7 +345,7 @@ export default {
       that.$nextTick(() => {
         that.form.setFieldsValue(pick(this.model, 'username', 'depart', 'post', 'telephone', 'email', 'review'))
       })
-      queryFile({ userid: that.userId }).then(res => {
+      queryFile({ userId: that.userId ,type : 1}).then(res => {
         that.fileList = res.result;
       })
     },
@@ -512,7 +512,7 @@ export default {
     },
     initFileList(userid) {
       let files
-      queryFile({ userid: userid }).then(res => {
+      queryFile({ userId: userid ,type: 1 }).then(res => {
         if (res.success) {
           this.files = res.result
         } else {

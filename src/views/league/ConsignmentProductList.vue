@@ -11,12 +11,12 @@
           </a-col>
           <a-col :xl="6" :lg="7" :md="8" :sm="24">
             <a-form-item label="产品编号">
-              <a-input placeholder="请输入产品编号" v-model="queryParam.issuerCode"></a-input>
+              <a-input placeholder="请输入产品编号" v-model="queryParam.productNum"></a-input>
             </a-form-item>
           </a-col>
           <a-col :xl="6" :lg="7" :md="8" :sm="24">
             <a-form-item label="发布时间">
-              <a-range-picker />
+              <a-range-picker v-model="queryParam.releaseTime"/>
             </a-form-item>
           </a-col>
           <a-col :xl="6" :lg="7" :md="8" :sm="24">
@@ -40,7 +40,7 @@
     <!-- 查询区域-END -->
 
     <!-- 操作按钮区域 -->
-    <div class="table-operator">
+    <!-- <div class="table-operator">
       <a-button @click="handleAdd" type="primary" icon="plus">新增</a-button>
       <a-dropdown v-if="selectedRowKeys.length > 0">
         <a-menu slot="overlay">
@@ -53,15 +53,15 @@
           <a-icon type="down" />
         </a-button>
       </a-dropdown>
-    </div>
+    </div> -->
 
     <!-- table区域-begin -->
     <div>
-      <div class="ant-alert ant-alert-info" style="margin-bottom: 16px;">
+      <!-- <div class="ant-alert ant-alert-info" style="margin-bottom: 16px;">
         <i class="anticon anticon-info-circle ant-alert-icon"></i> 已选择
         <a style="font-weight: 600">{{ selectedRowKeys.length }}</a>项
         <a style="margin-left: 24px" @click="onClearSelected">清空</a>
-      </div>
+      </div> -->
 
       <a-table
         ref="table"
@@ -72,8 +72,7 @@
         :dataSource="dataSource"
         :pagination="ipagination"
         :loading="loading"
-        :rowSelection="{fixed:true,selectedRowKeys: selectedRowKeys, onChange: onSelectChange}"
-        @change="handleTableChange"
+       
       >
         <template slot="htmlSlot" slot-scope="text">
           <div v-html="text"></div>
@@ -102,21 +101,18 @@
       </a-table>
     </div>
 
-    <zxProduct-modal ref="modalForm" @ok="modalFormOk"></zxProduct-modal>
   </a-card>
 </template>
 
 <script>
 import { JeecgListMixin } from '@/mixins/JeecgListMixin'
-import ZxProductModal from './modules/ZxProductModal'
 import JDictSelectTag from '@/components/dict/JDictSelectTag.vue'
 import { submitProduct } from "@/api/user";
 export default {
-  name: 'ConsignmentProduct',
+  name: 'ConsignmentProductList',
   mixins: [JeecgListMixin],
   components: {
     JDictSelectTag,
-    ZxProductModal
   },
   data() {
     return {
@@ -129,24 +125,34 @@ export default {
           dataIndex: 'productName'
         },
         {
-          title: '发行机构代码',
+          title: '会员名称',
           align: 'center',
-          dataIndex: 'issuerCode'
+          dataIndex: 'organName'
         },
         {
-          title: '产品审批人姓名',
+          title: '产品编号',
           align: 'center',
-          dataIndex: 'approverName'
+          dataIndex: 'productNum'
         },
         {
-          title: '资金投向地区',
+          title: '产品状态',
           align: 'center',
-          dataIndex: 'investmentinArea'
+          dataIndex: 'status'
         },
         {
-          title: '产品运作模式',
+          title: '代销额度',
           align: 'center',
-          dataIndex: 'operationMode'
+          dataIndex: 'saleLimit'
+        },
+        {
+          title: '发布时间',
+          align: 'center',
+          dataIndex: 'releaseTime'
+        },
+        {
+          title: '关键节点',
+          align: 'center',
+          dataIndex: 'keyNode'
         }
       ],
       url: {

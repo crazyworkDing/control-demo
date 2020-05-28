@@ -385,7 +385,7 @@
 <script>
 import axios from 'axios'
 import { registerUser } from '@/api/api'
-import { saveToDraft, findDraft, getDepart, getCity } from '@/api/user'
+import { saveToDraft, findDraft, getOrgan, getCity } from '@/api/user'
 import { addUser, editUser, queryUserRole, queryall, queryFile } from '@/api/api'
 import { downFile } from '@/api/manage'
 
@@ -892,9 +892,9 @@ export default {
       document.querySelector('body').style.backgroundImage = "url('/bg.jpg') "
       document.querySelector('body').style.backgroundRepeat = 'no-repeat'
       this.tokenHeaders = { 'X-Access-Token': this.$ls.get('Access-Token') }
-      getDepart(null).then(res => {
-        this.selectOption.organCode = res.result.records
-        this.selectOption.fullName = res.result.records
+      getOrgan(null).then(res => {
+        this.selectOption.organCode = res.result
+        this.selectOption.fullName = res.result
       })
     }
   },

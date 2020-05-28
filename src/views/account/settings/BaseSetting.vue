@@ -77,8 +77,8 @@
             <a-input v-decorator="['regCapital']" />
           </a-form-item>
 
-          <a-form-item label="机构" :labelCol="{span: 8}" :wrapperCol="{span: 16}">
-            <a-input v-decorator="['organCode']" />
+          <a-form-item label="机构代码" :labelCol="{span: 8}" :wrapperCol="{span: 16}">
+            <a-input v-decorator="['organCode']" disabled/>
           </a-form-item>
 
           <a-form-item label="存款规模" :labelCol="{span: 8}" :wrapperCol="{span: 16}">
@@ -214,7 +214,7 @@ export default {
     }
   },
   created() {
-    this.initObj()
+    this.getSelectionData();
   },
   methods: {
     ...mapGetters(["nickname", "avatar","userInfo"]),
@@ -263,6 +263,7 @@ export default {
       this.fileList = [...file.fileList];
     },
     handleSubmit() {
+      let that = this;
       this.form.validateFields((err, values) => {
         if (err) {
           return
@@ -276,10 +277,7 @@ export default {
               filesId += this.fileList[i].id + ','
             }
           }
-          let formData = Object.assign(this.model, values, {
-            businessScope: that.businessScope[that.businessScope.length - 1]
-          })
-          params = Object.assign({}, values, {files: filesId, id: this.id})
+          params = Object.assign({}, values, {files: filesId, id: that.id, businessScope: that.businessScope[1]})
           editOrgan(params).then(res => {
             if (res.success) {
               this.$message.success(res.message)
@@ -305,13 +303,13 @@ export default {
         })
         that.fileList = [...fileList]
       })
-      this.tokenHeaders = { 'X-Access-Token': this.$ls.get('Access-Token') }
+      that.tokenHeaders = { 'X-Access-Token': this.$ls.get('Access-Token') }
       getAction('/sys/user/userOrgan').then(res => {
         if (res.success) {
           // this.sysuser = res.result;
-          this.id = res.result.id;
+          that.id = res.result.id;
           let flagId = res.result.businessScope
-          this.form.setFieldsValue(
+          that.form.setFieldsValue(
             pick(
               res.result,
               'fullName',
@@ -337,7 +335,7 @@ export default {
             )
           )
           let businessScope = []
-        this.selectOption.city.forEach(res => {
+        that.selectOption.city.forEach(res => {
           if (!res.children) {
             return
           }
@@ -347,17 +345,23 @@ export default {
             }
           })
         })
-        this.businessScope = businessScope
+        that.businessScope = businessScope
         } else {
           console.log(res.message)
         }
       })
+    },
+    getSelectionData() {
+      axios.get('/city.json').then(res => {
+        this.selectOption.city = res.data.result
+        this.initObj()
+      })
     }
   },
   mounted() {
-    axios.get('/city.json').then(res => {
-      this.selectOption.city = res.data.result
-    })
+    // axios.get('/city.json').then(res => {
+    //   this.selectOption.city = res.data.result
+    // })
   }
 }
 </script>

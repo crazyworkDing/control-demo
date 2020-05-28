@@ -815,6 +815,7 @@ export default {
           addProduct(params).then(res => {
             if (res.success) {
               this.$message.success(res.message)
+              this.$emit('ok');
               this.visible = false
             } else {
               this.$message.error(res.message)
@@ -943,39 +944,7 @@ export default {
       this.$emit('close')
       this.visible = false
     },
-    handleOk() {
-      const that = this
-      // 触发表单验证
-      this.form.validateFields((err, values) => {
-        if (!err) {
-          that.confirmLoading = true
-          let httpurl = ''
-          let method = ''
-          if (!this.model.id) {
-            httpurl += this.url.add
-            method = 'post'
-          } else {
-            httpurl += this.url.edit
-            method = 'put'
-          }
-          let formData = Object.assign(this.model, values)
-          console.log('表单提交数据', formData)
-          httpAction(httpurl, formData, method)
-            .then(res => {
-              if (res.success) {
-                that.$message.success(res.message)
-                that.$emit('ok')
-              } else {
-                that.$message.warning(res.message)
-              }
-            })
-            .finally(() => {
-              that.confirmLoading = false
-              that.close()
-            })
-        }
-      })
-    },
+
     handleCancel() {
       this.close()
     },

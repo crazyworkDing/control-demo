@@ -1,0 +1,554 @@
+[
+  {
+    "name": "产品名称",
+    "value": "productName",
+    "valid": true,
+    "type": "input"
+  },
+  {
+    "name": "行内标识码",
+    "value": "signCode",
+    "valid": true,
+    "type": "input"
+  },
+  {
+    "name": "发行机构代码",
+    "value": "issuerCode",
+    "valid": true,
+    "type": "input"
+  },
+  {
+    "name": "产品审批人姓名",
+    "value": "approverName",
+    "valid": false,
+    "type": "input"
+  },
+  {
+    "name": "产品审批人身份证号",
+    "value": "approveridNum",
+    "valid": false,
+    "type": "input"
+  },
+  {
+    "name": "产品设计人姓名",
+    "value": "designerName",
+    "valid": false,
+    "type": "input"
+  },
+  {
+    "name": "产品设计人身份证号",
+    "value": "designeridNum",
+    "valid": false,
+    "type": "input"
+  },
+  {
+    "name": "投资经理姓名",
+    "value": "managerName",
+    "valid": false,
+    "type": "input"
+  },
+  {
+    "name": "投资经理身份证号",
+    "value": "manageridNum",
+    "valid": false,
+    "type": "input"
+  },
+  {
+    "name": "业务联络人姓名",
+    "value": "contactPersonName",
+    "valid": true,
+    "type": "input"
+  },
+  {
+    "name": "业务联络人座机",
+    "value": "contactPersonLandline",
+    "valid": false,
+    "type": "input"
+  },
+  {
+    "name": "业务联络人手机",
+    "value": "contactPersonTelphone",
+    "valid": true,
+    "type": "input"
+  },
+  {
+    "name": "业务联络人邮箱",
+    "value": "contactPersonMail",
+    "valid": false,
+    "type": "input"
+  },
+  {
+    "name": "产品收益类型",
+    "value": "productRevenueType",
+    "valid": true,
+    "type": "select"
+  },
+  {
+    "name": "产品期限",
+    "value": "productDeadline",
+    "valid": true,
+    "type": "select"
+  },
+  {
+    "name": "是否金融同业专属",
+    "value": "isFinancial",
+    "valid": false,
+    "type": "select"
+  },
+  {
+    "name": "资金投向地区",
+    "value": "investmentinArea",
+    "valid": false,
+    "type": "select"
+  },
+  {
+    "name": "产品投资国家或地区（境外）",
+    "value": "productinvestmentCountry",
+    "valid": false,
+    "type": "input"
+  },
+  {
+    "name": "理财业务服务模式",
+    "value": "financialserviceModel",
+    "valid": false,
+    "type": "select"
+  },
+  {
+    "name": "产品运作模式",
+    "value": "operationMode",
+    "valid": true,
+    "type": "select"
+  },
+  {
+    "name": "产品募集方式",
+    "value": "collectionMethod",
+    "valid": true,
+    "type": "select"
+  },
+  {
+    "name": "产品资产配置方式",
+    "value": "assetAllocation",
+    "valid": false,
+    "type": "select"
+  },
+  {
+    "name": "产品管理模式",
+    "value": "manageModel",
+    "valid": false,
+    "type": "select"
+  },
+  {
+    "name": "实际管理人名称",
+    "value": "actualAdminName",
+    "valid": false,
+    "type": "input"
+  },
+  {
+    "name": "产品定价方式",
+    "value": "pricingMethod",
+    "valid": false,
+    "type": "select"
+  },
+  {
+    "name": "产品投资性质",
+    "value": "investmentNature",
+    "valid": true,
+    "type": "select"
+  },
+  {
+    "name": "业绩比较基准%",
+    "value": "performanceStandard",
+    "valid": true,
+    "type": "input"
+  },
+  {
+    "name": "是否设置最短持有期限",
+    "value": "issetminHold",
+    "valid": false,
+    "type": "select"
+  },
+  {
+    "name": "最短持有期限（天）",
+    "value": "minHolding",
+    "valid": false,
+    "type": "input"
+  },
+  {
+    "name": "最短持有期后是否自由赎回",
+    "value": "isredempteHold",
+    "valid": false,
+    "type": "select"
+  },
+  {
+    "name": "是否现金管理类",
+    "value": "iscashManage",
+    "valid": false,
+    "type": "select"
+  },
+  {
+    "name": "产品销售区域",
+    "value": "saleArea",
+    "valid": false,
+    "type": "input"
+  },
+  {
+    "name": "起点销售金额",
+    "value": "startSales",
+    "valid": true,
+    "type": "input"
+  },
+  {
+    "name": "募集币种",
+    "value": "currency",
+    "valid": false,
+    "type": "input"
+  },
+  {
+    "name": "兑付本金币种",
+    "value": "principalCurrency",
+    "valid": false,
+    "type": "input"
+  },
+  {
+    "name": "兑付收益币种",
+    "value": "proceedsCurrency",
+    "valid": false,
+    "type": "input"
+  },
+  {
+    "name": "销售手续费率%",
+    "value": "salesprocedureRate",
+    "valid": false,
+    "type": "input"
+  },
+  {
+    "name": "托管费率%",
+    "value": "hostingFees",
+    "valid": false,
+    "type": "input"
+  },
+  {
+    "name": "募集起始日期（从）",
+    "value": "fundraisestartDate",
+    "valid": false,
+    "type": "input"
+  },
+  {
+    "name": "募集起始日期（到）",
+    "value": "fundraiseendDate",
+    "valid": false,
+    "type": "input"
+  },
+  {
+    "name": "计划募集金额（元）",
+    "value": "planfundraiseAmount",
+    "valid": false,
+    "type": "input"
+  },
+  {
+    "name": "境内托管机构名称",
+    "value": "domesticogranName",
+    "valid": false,
+    "type": "select"
+  },
+  {
+    "name": "境内托管机构代码",
+    "value": "domesticogranCode",
+    "valid": false,
+    "type": "input"
+  },
+  {
+    "name": "境外托管机构国别",
+    "value": "overseasogranCountry",
+    "valid": false,
+    "type": "input"
+  },
+  {
+    "name": "境外托管机构名称",
+    "value": "overseasorganName",
+    "valid": false,
+    "type": "input"
+  },
+  {
+    "name": "投资者风险偏好",
+    "value": "riskAppetite",
+    "valid": false,
+    "type": "input"
+  },
+  {
+    "name": "产品风险等级",
+    "value": "riskLevel",
+    "valid": true,
+    "type": "select"
+  },
+  {
+    "name": "发行机构提前终止权标识",
+    "value": "terminationSign",
+    "valid": false,
+    "type": "select"
+  },
+  {
+    "name": "客户赎回权标识",
+    "value": "redemptionSign",
+    "valid": false,
+    "type": "select"
+  },
+  {
+    "name": "产品品牌",
+    "value": "brand",
+    "valid": false,
+    "type": "input"
+  },
+  {
+    "name": "产品期次",
+    "value": "issue",
+    "valid": false,
+    "type": "input"
+  },
+  {
+    "name": "投资管理费率%",
+    "value": "investmentRate",
+    "valid": false,
+    "type": "input"
+  },
+  {
+    "name": "合作模式",
+    "value": "cooperateModle",
+    "valid": false,
+    "type": "select"
+  },
+  {
+    "name": "合作机构名称",
+    "value": "cooperateName",
+    "valid": false,
+    "type": "input"
+  },
+  {
+    "name": "投资本金到账日",
+    "value": "principalarrivesDate",
+    "valid": false,
+    "type": "select"
+  },
+  {
+    "name": "投资收益到账日",
+    "value": "revenuearrivesDate",
+    "valid": false,
+    "type": "select"
+  },
+  {
+    "name": "产品增信标识",
+    "value": "creditSign",
+    "valid": false,
+    "type": "select"
+  },
+  {
+    "name": "产品增信机构类型",
+    "value": "creditorganType",
+    "valid": false,
+    "type": "input"
+  },
+  {
+    "name": "产品增信形式",
+    "value": "creditForm",
+    "valid": false,
+    "type": "select"
+  },
+  {
+    "name": "投资资产种类及比例",
+    "value": "typesandProportion",
+    "valid": false,
+    "type": "input"
+  },
+  {
+    "name": "备注",
+    "value": "remark",
+    "valid": false,
+    "type": "input"
+  },
+  {
+    "name": "产品登记编码",
+    "value": "registerCode",
+    "valid": false,
+    "type": "input"
+  },
+  {
+    "name": "理财产品代码",
+    "value": "productCode",
+    "valid": false,
+    "type": "input"
+  },
+  {
+    "name": "产品起始日期",
+    "value": "productstartDate",
+    "valid": false,
+    "type": "input"
+  },
+  {
+    "name": "产品终止日期",
+    "value": "productendDate",
+    "valid": false,
+    "type": "input"
+  },
+  {
+    "name": "是否为结构化（分级）产品",
+    "value": "isStructured",
+    "valid": false,
+    "type": "select"
+  },
+  {
+    "name": "层级类别",
+    "value": "levelClass",
+    "valid": false,
+    "type": "select"
+  },
+  {
+    "name": "预计客户最低年收益率%",
+    "value": "minApy",
+    "valid": false,
+    "type": "input"
+  },
+  {
+    "name": "预计客户最高年收益率%",
+    "value": "maxApy",
+    "valid": false,
+    "type": "input"
+  },
+  {
+    "name": "平均预计客户年收益率%",
+    "value": "averageApy",
+    "valid": false,
+    "type": "input"
+  },
+  {
+    "name": "收益率分档情况说明",
+    "value": "yieldinstructions",
+    "valid": false,
+    "type": "input"
+  },
+  {
+    "name": "开放模式",
+    "value": "openMode",
+    "valid": false,
+    "type": "select"
+  },
+  {
+    "name": "规律开放周期",
+    "value": "regularCycle",
+    "valid": false,
+    "type": "select"
+  },
+  {
+    "name": "其他规律开放周期(天)",
+    "value": "otherregularCycle",
+    "valid": false,
+    "type": "input"
+  },
+  {
+    "name": "无规律开放说明",
+    "value": "irregularinstructions",
+    "valid": false,
+    "type": "input"
+  },
+  {
+    "name": "首次开放周期起始日",
+    "value": "firstopenDate",
+    "valid": false,
+    "type": "input"
+  },
+  {
+    "name": "节假日是否开放",
+    "value": "isholidayOpen",
+    "valid": false,
+    "type": "select"
+  },
+  {
+    "name": "平均开放次数（年化）",
+    "value": "averageopenTimes",
+    "valid": false,
+    "type": "input"
+  },
+  {
+    "name": "开放期业务",
+    "value": "openBusiness",
+    "valid": false,
+    "type": "select"
+  },
+  {
+    "name": "开放期业务说明",
+    "value": "openBusinessinstructions",
+    "valid": false,
+    "type": "input"
+  },
+  {
+    "name": "会员名称",
+    "value": "organName",
+    "valid": true,
+    "type": "input"
+  },
+  {
+    "name": "预发行截止日",
+    "value": "advanceDeadline",
+    "valid": true,
+    "type": "input"
+  },
+  {
+    "name": "产品附件",
+    "value": "files",
+    "valid": true,
+    "type": "input"
+  },
+  {
+    "name": "产品状态",
+    "value": "status",
+    "valid": false,
+    "type": "select"
+  },
+  {
+    "name": "审核状态",
+    "value": "reviewStatus",
+    "valid": false,
+    "type": "select"
+  },
+  {
+    "name": "产品编号",
+    "value": "productNum",
+    "valid": true,
+    "type": "input"
+  },
+  {
+    "name": "代销额度",
+    "value": "saleLimit",
+    "valid": true,
+    "type": "input"
+  },
+  {
+    "name": "发布时间",
+    "value": "releaseTime",
+    "valid": true,
+    "type": "input"
+  },
+  {
+    "name": "关键节点",
+    "value": "keyNode",
+    "valid": true,
+    "type": "input"
+  },
+  {
+    "name": "已售额度",
+    "value": "soldLimit",
+    "valid": true,
+    "type": "input"
+  },
+  {
+    "name": "产品总规模",
+    "value": "productSize",
+    "valid": true,
+    "type": "input"
+  },
+  {
+    "name": "平台销售额度",
+    "value": "platformsalesLimit",
+    "valid": true,
+    "type": "input"
+  }
+]
