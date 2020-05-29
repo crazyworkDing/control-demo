@@ -13,26 +13,26 @@
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
-          label="机构全称"
+          label="会员全称"
           :hidden="false"
           hasFeedback
         >
           <a-input
             id="fullName"
-            placeholder="请输入机构全称"
+            placeholder="请输入会员全称"
             v-decorator="['fullName', validatorRules.fullName ]"
           />
         </a-form-item>
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
-          label="机构简称"
+          label="会员简称"
           :hidden="false"
           hasFeedback
         >
           <a-input
             id="abbreviateName"
-            placeholder="请输入机构简称"
+            placeholder="请输入会员简称"
             v-decorator="['abbreviateName', validatorRules.abbreviateName ]"
           />
         </a-form-item>
@@ -74,7 +74,7 @@
           hasFeedback
         >
           <el-cascader
-            v-model="businessScope"
+            v-decorator="['businessScope', validatorRules.businessScope ]"
             :options="selectOption.city"
             :props="{ expandTrigger: 'hover',label:'title' }"
             style="width: 100%"
@@ -276,6 +276,7 @@ import { validateDuplicateValue } from '@/utils/util'
 import JDate from '@/components/jeecg/JDate'
 import JDictSelectTag from '@/components/dict/JDictSelectTag'
 import { saveToDraft, findDraft, getDepart, getCity } from '@/api/user'
+import { duplicateCheck } from '@/api/api'
 export default {
   name: 'OrganModal',
   components: {
@@ -303,10 +304,10 @@ export default {
       },
       confirmLoading: false,
       validatorRules: {
-        fullName: { rules: [{ required: true, message: '机构全称不可为空' }] },
+        fullName: { rules: [{ required: true, message: '会员全称不可为空' }, { validator: this.validateFullname }] },
         abbreviateName: { rules: [] },
         memberType: { rules: [{ required: true, message: '请选择机构类型' }] },
-        businessScope: { rules: [{ required: false, message: '请选择经营区域' }] },
+        businessScope: { rules: [{ required: true, message: '请选择经营区域' }] },
         regAddress: { rules: [] },
         businessAddress: { rules: [] },
         corporate: { rules: [{ required: true, message: '法定代表人不可为空' }] },
@@ -316,7 +317,7 @@ export default {
         telephone: { rules: [] },
         linePhone: { rules: [] },
         regCapital: { rules: [] },
-        organCode: { rules: [{ required: true, message: '机构代码不可为空' }] },
+        organCode: { rules: [{ required: true, message: '机构代码不可为空' }, { validator: this.validateOrganCode }] },
         depositScale: { rules: [] },
         volumeScale: { rules: [] },
         selfScale: { rules: [] },
@@ -332,6 +333,42 @@ export default {
   },
   created() {},
   methods: {
+    validateOrganCode(rule, value, callback) {
+      if (!value) {
+        callback()
+      } else {
+        var params = {
+          tableName: 'sys_organ',
+          fieldName: 'organ_code',
+          fieldVal: value
+        }
+        duplicateCheck(params).then(res => {
+          if (res.success) {
+            callback()
+          } else {
+            callback('机构代码已注册')
+          }
+        })
+      }
+    },
+    validateFullname(rule, value, callback) {
+      if (!value) {
+        callback()
+      } else {
+        var params = {
+          tableName: 'sys_organ',
+          fieldName: 'full_name',
+          fieldVal: value
+        }
+        duplicateCheck(params).then(res => {
+          if (res.success) {
+            callback()
+          } else {
+            callback('会员全称已注册')
+          }
+        })
+      }
+    },
     add() {
       this.edit({})
     },
@@ -346,7 +383,7 @@ export default {
             'fullName',
             'abbreviateName',
             'memberType',
-            // 'businessScope',
+            'businessScope',
             'regAddress',
             'businessAddress',
             'corporate',
@@ -421,6 +458,7 @@ export default {
     handleCancel() {
       this.close()
     },
+
     popupCallback(row) {
       this.form.setFieldsValue(
         pick(

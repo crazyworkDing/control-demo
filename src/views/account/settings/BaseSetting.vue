@@ -9,7 +9,7 @@
       <a-col :span="14" :offset="3">
         <a-form :form="form">
           <a-form-item label="会员全称" :labelCol="{span: 8}" :wrapperCol="{span: 16}">
-            <a-input v-decorator="['fullName']" />
+            <a-input v-decorator="['fullName',valid.fullName]" />
           </a-form-item>
           <a-form-item label="会员简称" :labelCol="{span: 8}" :wrapperCol="{span: 16}">
             <a-input v-decorator="['abbreviateName']" />
@@ -155,6 +155,7 @@ import { editOrgan } from '@/api/user'
 import { mapGetters } from "vuex";
 import { queryFile } from '@/api/api'
 import pick from 'lodash.pick'
+import { duplicateCheck } from '@/api/api'
 export default {
   components: {},
   data() {
@@ -209,7 +210,10 @@ export default {
         },
         businessAddress: {
           rules: [{ required: true, message: '办公地址不能为空!' }]
-        }
+        },
+        fullName:{
+          rules: [{ required: true, message: '会员全称不能为空!' },{ validator: this.validateFullName }]
+        } 
       }
     }
   },
@@ -287,6 +291,25 @@ export default {
           })
         }
       })
+    },
+     validateFullName(rule, value, callback) {
+      if (!value) {
+        callback()
+      } else {
+        var params = {
+          tableName: 'sys_organ',
+          fieldName: 'full_name',
+          fieldVal: value,
+          dataId: this.id
+        }
+        duplicateCheck(params).then(res => {
+          if (res.success) {
+            callback()
+          } else {
+            callback('会员全称已注册')
+          }
+        })
+      }
     },
     initObj() {
       console.log(this.userInfo())

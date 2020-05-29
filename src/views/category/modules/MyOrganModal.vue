@@ -21,7 +21,8 @@
           <a-input
             id="fullName"
             placeholder="请输入机构全称"
-            disabled v-decorator="['fullName', validatorRules.fullName ]"
+            disabled
+            v-decorator="['fullName', validatorRules.fullName ]"
           />
         </a-form-item>
         <a-form-item
@@ -34,7 +35,8 @@
           <a-input
             id="abbreviateName"
             placeholder="请输入机构简称"
-            disabled v-decorator="['abbreviateName', validatorRules.abbreviateName ]"
+            disabled
+            v-decorator="['abbreviateName', validatorRules.abbreviateName ]"
           />
         </a-form-item>
         <a-form-item
@@ -45,7 +47,8 @@
           hasFeedback
         >
           <j-dict-select-tag
-            disabled v-decorator="['memberType']"
+            disabled
+            v-decorator="['memberType']"
             :type="'list'"
             :triggerChange="true"
             dict-code="member_type"
@@ -63,7 +66,8 @@
           <a-input
             id="organCode"
             placeholder="请输入机构代码"
-            disabled v-decorator="['organCode', validatorRules.organCode ]"
+            disabled
+            v-decorator="['organCode', validatorRules.organCode ]"
           />
         </a-form-item>
         <a-form-item
@@ -73,11 +77,15 @@
           :hidden="false"
           hasFeedback
         >
-          <a-input
-            id="businessScope"
-            placeholder="请输入经营区域"
-            disabled v-decorator="['businessScope', validatorRules.businessScope ]"
-          />
+          <el-cascader
+            v-model="businessScope"
+            :options="selectOption.city"
+            :props="{ expandTrigger: 'hover',label:'title' }"
+            style="width: 100%"
+            placeholder="请选择经营地区"
+            :show-all-levels="false"
+            disabled
+          ></el-cascader>
         </a-form-item>
         <a-form-item
           :labelCol="labelCol"
@@ -89,7 +97,8 @@
           <a-input
             id="regAddress"
             placeholder="请输入注册地址"
-            disabled v-decorator="['regAddress', validatorRules.regAddress ]"
+            disabled
+            v-decorator="['regAddress', validatorRules.regAddress ]"
           />
         </a-form-item>
         <a-form-item
@@ -102,7 +111,8 @@
           <a-input
             id="businessAddress"
             placeholder="请输入办公地址"
-            disabled v-decorator="['businessAddress', validatorRules.businessAddress ]"
+            disabled
+            v-decorator="['businessAddress', validatorRules.businessAddress ]"
           />
         </a-form-item>
         <a-form-item
@@ -115,7 +125,8 @@
           <a-input
             id="corporate"
             placeholder="请输入法定代表人"
-            disabled v-decorator="['corporate', validatorRules.corporate ]"
+            disabled
+            v-decorator="['corporate', validatorRules.corporate ]"
           />
         </a-form-item>
         <a-form-item
@@ -128,7 +139,8 @@
           <a-input
             id="businessPhone"
             placeholder="请输入办公电话"
-            disabled v-decorator="['businessPhone', validatorRules.businessPhone ]"
+            disabled
+            v-decorator="['businessPhone', validatorRules.businessPhone ]"
           />
         </a-form-item>
         <a-form-item
@@ -141,7 +153,8 @@
           <a-input
             id="depart"
             placeholder="请输入承办部门"
-            disabled v-decorator="['depart', validatorRules.depart ]"
+            disabled
+            v-decorator="['depart', validatorRules.depart ]"
           />
         </a-form-item>
         <a-form-item
@@ -154,7 +167,8 @@
           <a-input
             id="departLeader"
             placeholder="请输入部门负责人"
-            disabled v-decorator="['departLeader', validatorRules.departLeader ]"
+            disabled
+            v-decorator="['departLeader', validatorRules.departLeader ]"
           />
         </a-form-item>
         <a-form-item
@@ -167,7 +181,8 @@
           <a-input
             id="linePhone"
             placeholder="请输入部门负责人联系方式"
-            disabled v-decorator="['linePhone', validatorRules.linePhone ]"
+            disabled
+            v-decorator="['linePhone', validatorRules.linePhone ]"
           />
         </a-form-item>
         <a-form-item
@@ -180,7 +195,8 @@
           <a-input
             id="regCapital"
             placeholder="请输入注册资本"
-            disabled v-decorator="['regCapital', validatorRules.regCapital ]"
+            disabled
+            v-decorator="['regCapital', validatorRules.regCapital ]"
           />
         </a-form-item>
         <a-form-item
@@ -193,7 +209,8 @@
           <a-input
             id="depositScale"
             placeholder="请输入存款规模"
-            disabled v-decorator="['depositScale', validatorRules.depositScale ]"
+            disabled
+            v-decorator="['depositScale', validatorRules.depositScale ]"
           />
         </a-form-item>
         <a-form-item
@@ -206,7 +223,8 @@
           <a-input
             id="volumeScale"
             placeholder="请输入贷款规模"
-            disabled v-decorator="['volumeScale', validatorRules.volumeScale ]"
+            disabled
+            v-decorator="['volumeScale', validatorRules.volumeScale ]"
           />
         </a-form-item>
         <a-form-item
@@ -219,7 +237,8 @@
           <a-input
             id="selfScale"
             placeholder="请输入自营理财规模"
-            disabled v-decorator="['selfScale', validatorRules.selfScale ]"
+            disabled
+            v-decorator="['selfScale', validatorRules.selfScale ]"
           />
         </a-form-item>
         <a-form-item
@@ -232,11 +251,16 @@
           <a-input
             id="consignmentScale"
             placeholder="请输入代销理财规模"
-            disabled v-decorator="['consignmentScale', validatorRules.consignmentScale ]"
+            disabled
+            v-decorator="['consignmentScale', validatorRules.consignmentScale ]"
           />
         </a-form-item>
         <a-form-item :labelCol="labelCol" :wrapperCol="wrapperCol" label="网点数">
-          <a-input placeholder="请输入网点数" disabled v-decorator="['networkCount',validatorRules.networkCount]" />
+          <a-input
+            placeholder="请输入网点数"
+            disabled
+            v-decorator="['networkCount',validatorRules.networkCount]"
+          />
         </a-form-item>
         <a-form-item :labelCol="labelCol" :wrapperCol="wrapperCol" label="是否有独立的理财系统">
           <a-select
@@ -256,7 +280,7 @@
         <a-form-item class="text-center" v-if="!flag">
           <a-button type="primary"  @click="confirm">审核通过</a-button>
           <a-button type="primary"  @click="refuse" class="ml20">审核拒绝</a-button>
-        </a-form-item> -->
+        </a-form-item>-->
       </a-form>
     </a-spin>
   </a-drawer>
@@ -273,12 +297,13 @@
 </template>
 
 <script>
+import axios from 'axios'
 import { httpAction } from '@/api/manage'
 import pick from 'lodash.pick'
 import { validateDuplicateValue } from '@/utils/util'
 import JDate from '@/components/jeecg/JDate'
 import JDictSelectTag from '@/components/dict/JDictSelectTag'
-import { auditData } from "@/api/user";
+import { auditData } from '@/api/user'
 export default {
   name: 'MyOrganModal',
   components: {
@@ -290,6 +315,10 @@ export default {
       flag: '',
       form: this.$form.createForm(this),
       dataId: '',
+      businessScope: [],
+      selectOption: {
+        city: []
+      },
       title: '操作',
       width: 800,
       visible: false,
@@ -328,7 +357,8 @@ export default {
         review: {
           rules: [
             {
-              required: true, message: '审核意见不能为空'
+              required: true,
+              message: '审核意见不能为空'
             }
           ]
         }
@@ -382,10 +412,12 @@ export default {
     },
     edit(record) {
       this.form.resetFields()
-      this.model = Object.assign({}, record);
-      this.flag = record.review;
+      this.model = Object.assign({}, record)
+      this.flag = record.review
       this.visible = true
-      this.dataId = record.dataId;
+      this.dataId = record.dataId
+      let flagId = record.businessScope
+      let that = this
       this.$nextTick(() => {
         this.form.setFieldsValue(
           pick(
@@ -413,6 +445,19 @@ export default {
             'review'
           )
         )
+        let businessScope = []
+
+        that.selectOption.city.forEach(res => {
+          if (!res.children) {
+            return
+          }
+          res.children.forEach(res2 => {
+            if (res2.id == flagId) {
+              businessScope = [res.id, res2.id]
+            }
+          })
+        })
+        that.businessScope = businessScope
       })
     },
     close() {
@@ -482,6 +527,11 @@ export default {
         )
       )
     }
+  },
+  mounted() {
+    axios.get('/city.json').then(res => {
+      this.selectOption.city = res.data.result
+    })
   }
 }
 </script>

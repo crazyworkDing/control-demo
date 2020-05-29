@@ -137,7 +137,7 @@ export default {
         {
           title: '产品状态',
           align: 'center',
-          dataIndex: 'status'
+          dataIndex: 'productStatus_dictText'
         },
         {
           title: '代销额度',
@@ -156,7 +156,7 @@ export default {
         }
       ],
       url: {
-        list: '/prodectNew/zxProductDeclare/list',
+        list: '/prodectNew/zxProductDeclare/releaseList',
         delete: '/prodectNew/zxProductDeclare/delete',
         deleteBatch: '/prodectNew/zxProductDeclare/deleteBatch',
         exportXlsUrl: '/product/zxProduct/exportXls',

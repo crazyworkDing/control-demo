@@ -177,6 +177,11 @@ export const JeecgListMixin = {
         this.queryParam.endTime = format( this.queryParam.endTime, 'YYYY-MM-DD HH:mm:ss')
       }
       var param = Object.assign(sqp, this.queryParam, this.isorter ,this.filters);
+      if (this.queryParam.releaseTime) {
+        param.releaseTime_begin = format(this.queryParam.releaseTime[0], 'YYYY-MM-DD');
+        param.releaseTime_end = format(this.queryParam.releaseTime[1], 'YYYY-MM-DD');
+        delete param.releaseTime;
+      }
       param.field = this.getQueryField();
       param.pageNo = this.ipagination.current;
       param.pageSize = this.ipagination.pageSize;

@@ -112,10 +112,10 @@
               <a-menu-item>
                 <a @click="handleEdit(record)">编辑</a>
               </a-menu-item>
-              <a-menu-item>
+              <a-menu-item v-if="record.productStatus=='B'">
                 <a @click="handleEdit2(record)">转为募集期</a>
               </a-menu-item>
-              <a-menu-item>
+              <a-menu-item v-if="record.productStatus=='C'">
                 <a @click="handleEdit3(record)">转为存续期</a>
               </a-menu-item>
               <a-menu-item>
@@ -138,6 +138,7 @@ import { JeecgListMixin } from '@/mixins/JeecgListMixin'
 import CompletedProductModal from './modules/CompletedProductModal'
 import JDictSelectTag from '@/components/dict/JDictSelectTag.vue'
 import { submitProduct } from "@/api/user";
+import axios from 'axios'
 export default {
   name: 'CompletedProductList',
   mixins: [JeecgListMixin],
@@ -168,7 +169,7 @@ export default {
         {
           title: '产品状态',
           align: 'center',
-          dataIndex: 'status'
+          dataIndex: 'productStatus_dictText'
         },
         {
           title: '产品总规模',
@@ -198,7 +199,7 @@ export default {
         }
       ],
       url: {
-        list: '/prodectNew/zxProductDeclare/list',
+        list: '/prodectNew/zxProductDeclare/releaseList',
         delete: '/prodectNew/zxProductDeclare/delete',
         deleteBatch: '/prodectNew/zxProductDeclare/deleteBatch',
         exportXlsUrl: '/product/zxProduct/exportXls',
@@ -216,17 +217,66 @@ export default {
     initDictConfig() {},
     handleDetail(record) {
       this.$refs.modalForm.title = '详情'
-      this.$refs.modalForm.edit(record);
+      switch(record.productStatus) {
+        case 'B':
+          axios.get('/modalStart.json').then(res => {
+            this.$refs.modalForm.edit(record, res.data);
+          })
+          break;
+        case "C":
+          axios.get('/modalRaise.json').then(res => {
+            this.$refs.modalForm.edit(record, res.data);
+          })
+          break;
+        case "M":
+          axios.get('/modalEnd.json').then(res => {
+            this.$refs.modalForm.edit(record, res.data);
+          })
+          break;
+        case "F":
+          break;
+        default:
+          break;
+      }
       this.$refs.modalForm.disabled = true;
+    },
+    handleEdit(record) {
+      this.$refs.modalForm.title = '编辑'
+      switch(record.productStatus) {
+        case 'B':
+          axios.get('/modalStart.json').then(res => {
+            this.$refs.modalForm.edit(record, res.data);
+          })
+          break;
+        case "C":
+          axios.get('/modalRaise.json').then(res => {
+            this.$refs.modalForm.edit(record, res.data);
+          })
+          break;
+        case "M":
+          axios.get('/modalEnd.json').then(res => {
+            this.$refs.modalForm.edit(record, res.data);
+          })
+          break;
+        case "F":
+          break;
+        default:
+          break;
+      }
+      this.$refs.modalForm.disabled = false;
     },
     handleEdit2(record) {
       this.$refs.modalForm.title = '转为募集期'
-      this.$refs.modalForm.edit(record);
+      axios.get('/modalRaise.json').then(res => {
+        this.$refs.modalForm.edit(record, res.data);
+      })
       this.$refs.modalForm.disabled = false;
     },
     handleEdit3(record) {
       this.$refs.modalForm.title = '转为存续期'
-      this.$refs.modalForm.edit(record);
+      axios.get('/modalEnd.json').then(res => {
+        this.$refs.modalForm.edit(record, res.data);
+      })
       this.$refs.modalForm.disabled = false;
     },
     submitAndPass(params) {
