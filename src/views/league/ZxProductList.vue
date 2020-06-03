@@ -26,7 +26,7 @@
               <!-- <a @click="handleToggleSearch" style="margin-left: 8px">
                 {{ toggleSearchStatus ? '收起' : '展开' }}
                 <a-icon :type="toggleSearchStatus ? 'up' : 'down'" />
-              </a> -->
+              </a>-->
             </span>
           </a-col>
         </a-row>
@@ -36,7 +36,17 @@
 
     <!-- 操作按钮区域 -->
     <div class="table-operator">
-      <a-button @click="handleAdd" type="primary" icon="plus">新增</a-button>
+      <a-dropdown>
+        <a-menu slot="overlay" @click="handleMenuClick">
+          <a-menu-item key="B">预发行期</a-menu-item>
+          <a-menu-item key="C">募集期</a-menu-item>
+          <a-menu-item key="M">存续期</a-menu-item>
+        </a-menu>
+        <a-button type="primary" icon="plus">
+          新增
+          <a-icon type="down" />
+        </a-button>
+      </a-dropdown>
       <a-dropdown v-if="selectedRowKeys.length > 0">
         <a-menu slot="overlay">
           <a-menu-item key="1" @click="batchDel">
@@ -111,7 +121,7 @@
                 </a-popconfirm>
               </a-menu-item>
               <a-menu-item>
-                <a-popconfirm title="确定删除吗?" @confirm="() => submitAndPass(record)">
+                <a-popconfirm title="确定提交审核吗?" @confirm="() => submitAndPass(record)">
                   <a>提交审核</a>
                 </a-popconfirm>
               </a-menu-item>
@@ -129,7 +139,9 @@
 import { JeecgListMixin } from '@/mixins/JeecgListMixin'
 import ZxProductModal from './modules/ZxProductModal'
 import JDictSelectTag from '@/components/dict/JDictSelectTag.vue'
-import { submitProduct } from "@/api/user";
+import { submitProduct } from '@/api/user'
+import axios from 'axios'
+import { getAction } from "@/api/manage";
 export default {
   name: 'ZxProductList',
   mixins: [JeecgListMixin],
@@ -160,12 +172,12 @@ export default {
         {
           title: '资金投向地区',
           align: 'center',
-          dataIndex: 'investmentinArea'
+          dataIndex: 'investmentinArea_dictText'
         },
         {
           title: '产品运作模式',
           align: 'center',
-          dataIndex: 'operationMode'
+          dataIndex: 'operationMode_dictText'
         },
         {
           title: '操作',
@@ -175,11 +187,12 @@ export default {
         }
       ],
       url: {
-        list: '/prodectNew/zxProductDeclare/list',
+        list: '/prodectNew/zxProductDeclare/upholdList',
         delete: '/prodectNew/zxProductDeclare/delete',
         deleteBatch: '/prodectNew/zxProductDeclare/deleteBatch',
         exportXlsUrl: '/product/zxProduct/exportXls',
-        importExcelUrl: 'product/zxProduct/importExcel'
+        importExcelUrl: 'product/zxProduct/importExcel',
+        detailUrl: '/sys/process/queryProcesss'
       },
       dictOptions: {}
     }
@@ -191,14 +204,59 @@ export default {
   },
   methods: {
     initDictConfig() {},
+    handleEdit(record) {
+      this.$refs.modalForm.title = '编辑'
+      switch (record.productStatus) {
+        case 'B':
+          axios.get('/modalStart.json').then(res => {
+            this.$refs.modalForm.edit(record, res.data)
+          })
+          break
+        case 'C':
+          axios.get('/modalRaise.json').then(res => {
+            this.$refs.modalForm.edit(record, res.data)
+          })
+          break
+        case 'M':
+          axios.get('/modalEnd.json').then(res => {
+            this.$refs.modalForm.edit(record, res.data)
+          })
+          break
+        case 'F':
+          break
+        default:
+          break
+      }
+      this.$refs.modalForm.disabled = false
+    },
+
+    handleMenuClick(e){
+       this.$refs.modalForm.title = '新增'
+       switch (e.key){
+         case 'B':
+          axios.get('/modalStart.json').then(res => {
+            this.$refs.modalForm.add(e.key, res.data)
+          })
+          break
+        case 'C':
+          axios.get('/modalRaise.json').then(res => {
+            this.$refs.modalForm.add(e.key, res.data)
+          })
+          break
+        case 'M':
+          axios.get('/modalEnd.json').then(res => {
+            this.$refs.modalForm.add(e.key, res.data)
+          })
+       }
+    },
     submitAndPass(params) {
-      console.log(this.selectedRowKeys);
+      console.log(this.selectedRowKeys)
       submitProduct(params).then(res => {
         if (res.success) {
-          this.$message.success(res.message);
+          this.$message.success(res.message)
           this.loadData(1)
         } else {
-          this,$message.error(res.message);
+          this, $message.error(res.message)
         }
       })
     }

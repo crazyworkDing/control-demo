@@ -74,31 +74,6 @@
         :loading="loading"
         
       >
-        <template slot="htmlSlot" slot-scope="text">
-          <div v-html="text"></div>
-        </template>
-        <template slot="imgSlot" slot-scope="text">
-          <span v-if="!text" style="font-size: 12px;font-style: italic;">无此图片</span>
-          <img
-            v-else
-            :src="getImgView(text)"
-            height="25px"
-            alt="图片不存在"
-            style="max-width:80px;font-size: 12px;font-style: italic;"
-          />
-        </template>
-        <template slot="fileSlot" slot-scope="text">
-          <span v-if="!text" style="font-size: 12px;font-style: italic;">无此文件</span>
-          <a-button
-            v-else
-            :ghost="true"
-            type="primary"
-            icon="download"
-            size="small"
-            @click="uploadFile(text)"
-          >下载</a-button>
-        </template>
-
         <span slot="action" slot-scope="text, record">
           <a @click="handleDetail(record)">详情</a>
 
@@ -120,7 +95,7 @@
               </a-menu-item>
               <a-menu-item>
                 <a-popconfirm title="确定撤销吗?" @confirm="() => submitAndPass(record)">
-                  <a @click="handleDelete(record.id)">撤销</a>
+                  撤销
                 </a-popconfirm>
               </a-menu-item>
             </a-menu>
@@ -139,6 +114,7 @@ import CompletedProductModal from './modules/CompletedProductModal'
 import JDictSelectTag from '@/components/dict/JDictSelectTag.vue'
 import { submitProduct } from "@/api/user";
 import axios from 'axios'
+import { postAction } from "@/api/manage";
 export default {
   name: 'CompletedProductList',
   mixins: [JeecgListMixin],
@@ -201,7 +177,7 @@ export default {
       url: {
         list: '/prodectNew/zxProductDeclare/releaseList',
         delete: '/prodectNew/zxProductDeclare/delete',
-        deleteBatch: '/prodectNew/zxProductDeclare/deleteBatch',
+        deleteBatch: '/prodectNew/zxProductDeclare/revokeProduct',
         exportXlsUrl: '/product/zxProduct/exportXls',
         importExcelUrl: 'product/zxProduct/importExcel'
       },
@@ -280,13 +256,12 @@ export default {
       this.$refs.modalForm.disabled = false;
     },
     submitAndPass(params) {
-      console.log(this.selectedRowKeys);
-      submitProduct(params).then(res => {
+      postAction('/prodectNew/zxProductDeclare/revokeProduct', params).then(res => {
         if (res.success) {
           this.$message.success(res.message);
-          this.loadData(1)
+          this.loadData(1);
         } else {
-          this,$message.error(res.message);
+          this.$message.error(res.message);
         }
       })
     }

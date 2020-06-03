@@ -6,12 +6,14 @@
         <a-row :gutter="24">
           <a-col :xl="6" :lg="7" :md="8" :sm="24">
             <a-form-item label="工作类型">
-              <a-input placeholder="请输入工作类型" v-model="queryParam.type"></a-input>
+              <j-dict-select-tag type="list" v-model="queryParam.type" dictCode="process_type" placeholder="请选择工作类型"/>
             </a-form-item>
           </a-col>
           <a-col :xl="6" :lg="7" :md="8" :sm="24">
             <a-form-item label="动作">
-              <a-input placeholder="请输入动作" v-model="queryParam.action"></a-input>
+              <j-dict-select-tag type="list" v-model="queryParam.action" dictCode="process_action" placeholder="请选择动作"/>
+
+              <!-- <a-input placeholder="请输入动作" v-model="queryParam.action"></a-input> -->
             </a-form-item>
           </a-col>
           <a-col :xl="6" :lg="7" :md="8" :sm="24">
@@ -87,22 +89,26 @@
 
     <user-modal ref="usermodalForm" @ok="modalFormOk"></user-modal>
     <organ-modal ref="organmodalForm" @ok="modalFormOk"></organ-modal>
+    <completed-product-modal ref="modalForm" @ok="modalFormOk"></completed-product-modal>
   </a-card>
 </template>
 
 <script>
 import { JeecgListMixin } from '@/mixins/JeecgListMixin'
 import JDictSelectTag from '@/components/dict/JDictSelectTag.vue'
+import CompletedProductModal from './modules/CompletedProductModal'
 import UserModal from './modules/UserModal'
 import OrganModal from './modules/OrganModal'
 import { queryProcess } from '@/api/api'
+import axios from "axios";
 export default {
   name: 'ZxProcessContentList',
   mixins: [JeecgListMixin],
   components: {
     JDictSelectTag,
     UserModal,
-    OrganModal
+    OrganModal,
+    CompletedProductModal
   },
   data() {
     return {
@@ -176,6 +182,34 @@ export default {
               console.log(res.message)
             }
           })
+          break;
+        case '3':
+          let params = {}
+          params = JSON.parse(record.content)
+          params = Object.assign(params, { dataId: record.id, action: record.action_dictText, workStatus: record.workStatus })
+          switch(params.productStatus) {
+            case 'B':
+              axios.get('/modalStart.json').then(res2 => {
+                this.$refs.modalForm.edit(params, res2.data);
+              })
+              break;
+            case "C":
+              axios.get('/modalRaise.json').then(res2 => {
+                this.$refs.modalForm.edit(params, res2.data);
+              })
+              break;
+            case "M":
+              axios.get('/modalEnd.json').then(res2 => {
+                this.$refs.modalForm.edit(params, res2.data);
+              })
+              break;
+            case "F":
+              break;
+            default:
+              break;
+          }
+          this.$refs.modalForm.title = '详情'
+          this.$refs.modalForm.disabled = true;
           break;
         default:
           break;

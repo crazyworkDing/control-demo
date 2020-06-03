@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@antv/data-set": "^0.10.2",
+    "@antv/g6": "^3.5.1",
     "@jeecg/antd-online": "1.2.0",
     "@tinymce/tinymce-vue": "^2.0.0",
     "ant-design-vue": "^1.4.0",

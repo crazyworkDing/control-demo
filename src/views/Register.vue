@@ -712,7 +712,7 @@ export default {
       }
       findDraft(params).then(res => {
         if (res.success) {
-          queryFile({ userid: res.result.userInfo.id }).then(res2 => {
+          queryFile({ userid: res.result.userInfo.id,type : 1 }).then(res2 => {
             if (res2.success) {
               console.log(res2)
               this.activeName = 'first'

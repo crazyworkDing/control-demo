@@ -1,5 +1,28 @@
 [
   {
+    "name": "产品状态",
+    "value": "productStatus",
+    "valid": {},
+    "type": "select"
+  },
+  {
+    "name": "平台销售额度",
+    "value": "productSize",
+    "valid": {
+      "rules": [
+        {
+          "required": true,
+          "message": "平台销售额度不能为空"
+        },
+        {
+          "pattern": "^[0-9]{1,}$",
+          "message": "格式不对"
+        }
+      ]
+    },
+    "type": "input"
+  },
+  {
     "name": "产品名称",
     "value": "productName",
     "valid": {
@@ -7,6 +30,19 @@
         {
           "required": true,
           "message": "产品名称不能为空"
+        }
+      ]
+    },
+    "type": "input"
+  },
+  {
+    "name": "会员名称",
+    "value": "organName",
+    "valid": {
+      "rules": [
+        {
+          "required": true,
+          "message": "会员名称不能为空"
         }
       ]
     },
@@ -39,69 +75,26 @@
     "type": "input"
   },
   {
-    "name": "产品审批人姓名",
-    "value": "approverName",
-    "valid": {},
-    "type": "input"
-  },
-  {
-    "name": "产品审批人身份证号",
-    "value": "approveridNum",
+    "name": "产品登记编码",
+    "value": "registerCode",
     "valid": {
       "rules": [
         {
           "required": true,
-          "message": "产品审批人身份证号不能为空"
-        },
-        {
-          "pattern": "^\\d{6}(18|19|20)?\\d{2}(0[1-9]|1[012])(0[1-9]|[12]\\d|3[01])\\d{3}(\\d|[xX])$",
-          "message": "身份证号格式不对!"
+          "message": "产品登记编码不能为空"
         }
       ]
     },
     "type": "input"
   },
   {
-    "name": "产品设计人姓名",
-    "value": "designerName",
-    "valid": {},
-    "type": "input"
-  },
-  {
-    "name": "产品设计人身份证号",
-    "value": "designeridNum",
+    "name": "理财产品代码",
+    "value": "productCode",
     "valid": {
       "rules": [
         {
           "required": true,
-          "message": "产品设计人身份证号不能为空"
-        },
-        {
-          "pattern": "^\\d{6}(18|19|20)?\\d{2}(0[1-9]|1[012])(0[1-9]|[12]\\d|3[01])\\d{3}(\\d|[xX])$",
-          "message": "身份证号格式不对!"
-        }
-      ]
-    },
-    "type": "input"
-  },
-  {
-    "name": "投资经理姓名",
-    "value": "managerName",
-    "valid": {},
-    "type": "input"
-  },
-  {
-    "name": "投资经理身份证号",
-    "value": "manageridNum",
-    "valid": {
-      "rules": [
-        {
-          "required": true,
-          "message": "投资经理身份证号不能为空"
-        },
-        {
-          "pattern": "^\\d{6}(18|19|20)?\\d{2}(0[1-9]|1[012])(0[1-9]|[12]\\d|3[01])\\d{3}(\\d|[xX])$",
-          "message": "身份证号格式不对!"
+          "message": "理财产品代码  不能为空"
         }
       ]
     },
@@ -118,12 +111,6 @@
         }
       ]
     },
-    "type": "input"
-  },
-  {
-    "name": "业务联络人座机",
-    "value": "contactPersonLandline",
-    "valid": {},
     "type": "input"
   },
   {
@@ -144,36 +131,6 @@
     "type": "input"
   },
   {
-    "name": "业务联络人邮箱",
-    "value": "contactPersonMail",
-    "valid": {
-      "rules": [
-        {
-          "required": true,
-          "message": "业务联络人邮箱不能为空"
-        },
-        {
-          "pattern": "^[_a-zA-Z0-9_-_._-]+@([_a-zA-Z0-9_-]+\\.)+[a-zA-Z]{2,3}$",
-          "message": "邮箱格式不正确"
-        }
-      ]
-    },
-    "type": "input"
-  },
-  {
-    "name": "产品收益类型",
-    "value": "productRevenueType",
-    "valid": {
-      "rules": [
-        {
-          "required": true,
-          "message": "产品收益类型不能为空"
-        }
-      ]
-    },
-    "type": "select"
-  },
-  {
     "name": "产品期限",
     "value": "productDeadline",
     "valid": {
@@ -187,37 +144,13 @@
     "type": "select"
   },
   {
-    "name": "是否金融同业专属",
-    "value": "isFinancial",
-    "valid": {},
-    "type": "select"
-  },
-  {
-    "name": "资金投向地区",
-    "value": "investmentinArea",
-    "valid": {},
-    "type": "select"
-  },
-  {
-    "name": "产品投资国家或地区（境外）",
-    "value": "productinvestmentCountry",
-    "valid": {},
-    "type": "input"
-  },
-  {
-    "name": "理财业务服务模式",
-    "value": "financialserviceModel",
-    "valid": {},
-    "type": "select"
-  },
-  {
-    "name": "产品运作模式",
-    "value": "operationMode",
+    "name": "产品收益类型",
+    "value": "productRevenueType",
     "valid": {
       "rules": [
         {
           "required": true,
-          "message": "产品运作模式不能为空"
+          "message": "产品收益类型不能为空"
         }
       ]
     },
@@ -237,27 +170,16 @@
     "type": "select"
   },
   {
-    "name": "产品资产配置方式",
-    "value": "assetAllocation",
-    "valid": {},
-    "type": "select"
-  },
-  {
-    "name": "产品管理模式",
-    "value": "manageModel",
-    "valid": {},
-    "type": "select"
-  },
-  {
-    "name": "实际管理人名称",
-    "value": "actualAdminName",
-    "valid": {},
-    "type": "input"
-  },
-  {
-    "name": "产品定价方式",
-    "value": "pricingMethod",
-    "valid": {},
+    "name": "产品运作模式",
+    "value": "operationMode",
+    "valid": {
+      "rules": [
+        {
+          "required": true,
+          "message": "产品运作模式不能为空"
+        }
+      ]
+    },
     "type": "select"
   },
   {
@@ -291,6 +213,256 @@
     "type": "input"
   },
   {
+    "name": "募集币种",
+    "value": "currency",
+    "valid": {
+      "rules": [
+        {
+          "required": true,
+          "message": "募集币种不能为空"
+        }
+      ]
+    },
+    "type": "input"
+  },
+  {
+    "name": "计划募集金额（元）",
+    "value": "planfundraiseAmount",
+    "valid": {
+      "rules": [
+        {
+          "required": true,
+          "message": "计划募集金额（元）不能为空"
+        },
+        {
+          "pattern": "^[0-9]{1,}[.]{0,1}[0-9]{0,}$",
+          "message": "数据格式不对"
+        }
+      ]
+    },
+    "type": "input"
+  },
+  {
+    "name": "起点销售金额",
+    "value": "startSales",
+    "valid": {
+      "rules": [
+        {
+          "required": true,
+          "message": "起点销售金额不能为空"
+        },
+        {
+          "pattern": "^[0-9]{1,}[.]{0,1}[0-9]{0,}$",
+          "message": "数据格式不对"
+        }
+      ]
+    },
+    "type": "input"
+  },
+  {
+    "name": "产品风险等级",
+    "value": "riskLevel",
+    "valid": {
+      "rules": [
+        {
+          "required": true,
+          "message": "产品风险等级不能为空"
+        }
+      ]
+    },
+    "type": "select"
+  },
+  {
+    "name": "开放模式",
+    "value": "openMode",
+    "valid": {
+      "rules": [
+        {
+          "required": true,
+          "message": "开放模式不能为空"
+        }
+      ]
+    },
+    "type": "select"
+  },
+  {
+    "name": "预发行截止日",
+    "value": "advanceDeadline",
+    "valid": {
+      "rules": [
+        {
+          "pattern": "^[0-9]{8}$",
+          "message": "日期格式应为YYYYMMDD"
+        }
+      ]
+    },
+    "type": "input"
+  },
+  {
+    "name": "募集起始日期（从）",
+    "value": "fundraisestartDate",
+    "valid": {
+      "rules": [
+        {
+          "required": true,
+          "message": "募集起始日期不能为空"
+        },
+        {
+          "pattern": "^[0-9]{8}$",
+          "message": "日期格式应为YYYYMMDD"
+        }
+      ]
+    },
+    "type": "input"
+  },
+  {
+    "name": "募集起始日期（到）",
+    "value": "fundraiseendDate",
+    "valid": {
+      "rules": [
+        {
+          "required": true,
+          "message": "募集起始日期不能为空"
+        },
+        {
+          "pattern": "^[0-9]{8}$",
+          "message": "日期格式应为YYYYMMDD"
+        }
+      ]
+    },
+    "type": "input"
+  },
+  {
+    "name": "产品附件",
+    "value": "files",
+    "valid": {},
+    "type": "file"
+  },
+  {
+    "name": "产品审批人姓名",
+    "value": "approverName",
+    "valid": {},
+    "type": "input"
+  },
+  {
+    "name": "产品审批人身份证号",
+    "value": "approveridNum",
+    "valid": {
+      "rules": [
+        {
+          "pattern": "^\\d{6}(18|19|20)?\\d{2}(0[1-9]|1[012])(0[1-9]|[12]\\d|3[01])\\d{3}(\\d|[xX])$",
+          "message": "身份证号格式不对!"
+        }
+      ]
+    },
+    "type": "input"
+  },
+  {
+    "name": "产品设计人姓名",
+    "value": "designerName",
+    "valid": {},
+    "type": "input"
+  },
+  {
+    "name": "产品设计人身份证号",
+    "value": "designeridNum",
+    "valid": {
+      "rules": [
+        {
+          "pattern": "^\\d{6}(18|19|20)?\\d{2}(0[1-9]|1[012])(0[1-9]|[12]\\d|3[01])\\d{3}(\\d|[xX])$",
+          "message": "身份证号格式不对!"
+        }
+      ]
+    },
+    "type": "input"
+  },
+  {
+    "name": "投资经理姓名",
+    "value": "managerName",
+    "valid": {},
+    "type": "input"
+  },
+  {
+    "name": "投资经理身份证号",
+    "value": "manageridNum",
+    "valid": {
+      "rules": [
+        {
+          "pattern": "^\\d{6}(18|19|20)?\\d{2}(0[1-9]|1[012])(0[1-9]|[12]\\d|3[01])\\d{3}(\\d|[xX])$",
+          "message": "身份证号格式不对!"
+        }
+      ]
+    },
+    "type": "input"
+  },
+  {
+    "name": "业务联络人座机",
+    "value": "contactPersonLandline",
+    "valid": {},
+    "type": "input"
+  },
+  {
+    "name": "业务联络人邮箱",
+    "value": "contactPersonMail",
+    "valid": {
+      "rules": [
+        {
+          "pattern": "^[_a-zA-Z0-9_-_._-]+@([_a-zA-Z0-9_-]+\\.)+[a-zA-Z]{2,3}$",
+          "message": "邮箱格式不正确"
+        }
+      ]
+    },
+    "type": "input"
+  },
+  {
+    "name": "是否金融同业专属",
+    "value": "isFinancial",
+    "valid": {},
+    "type": "select"
+  },
+  {
+    "name": "资金投向地区",
+    "value": "investmentinArea",
+    "valid": {},
+    "type": "select"
+  },
+  {
+    "name": "产品投资国家或地区（境外）",
+    "value": "productinvestmentCountry",
+    "valid": {},
+    "type": "input"
+  },
+  {
+    "name": "理财业务服务模式",
+    "value": "financialserviceModel",
+    "valid": {},
+    "type": "select"
+  },
+  {
+    "name": "产品资产配置方式",
+    "value": "assetAllocation",
+    "valid": {},
+    "type": "select"
+  },
+  {
+    "name": "产品管理模式",
+    "value": "manageModel",
+    "valid": {},
+    "type": "select"
+  },
+  {
+    "name": "实际管理人名称",
+    "value": "actualAdminName",
+    "valid": {},
+    "type": "input"
+  },
+  {
+    "name": "产品定价方式",
+    "value": "pricingMethod",
+    "valid": {},
+    "type": "select"
+  },
+  {
     "name": "是否设置最短持有期限",
     "value": "issetminHold",
     "valid": {},
@@ -301,10 +473,6 @@
     "value": "minHolding",
     "valid": {
       "rules": [
-        {
-          "required": true,
-          "message": "最短持有期限（天）不能为空"
-        },
         {
           "pattern": "^[0-9]{1,}$",
           "message": "数据格式不对"
@@ -332,29 +500,6 @@
     "type": "input"
   },
   {
-    "name": "起点销售金额",
-    "value": "startSales",
-    "valid": {
-      "rules": [
-        {
-          "required": true,
-          "message": "起点销售金额不能为空"
-        },
-        {
-          "pattern": "^[0-9]{1,}[.]{0,1}[0-9]{0,}$",
-          "message": "数据格式不对"
-        }
-      ]
-    },
-    "type": "input"
-  },
-  {
-    "name": "募集币种",
-    "value": "currency",
-    "valid": {},
-    "type": "input"
-  },
-  {
     "name": "兑付本金币种",
     "value": "principalCurrency",
     "valid": {},
@@ -372,10 +517,6 @@
     "valid": {
       "rules": [
         {
-          "required": true,
-          "message": "销售手续费率%不能为空"
-        },
-        {
           "pattern": "^[0-9]{1,3}$",
           "message": "数据格式不对"
         }
@@ -389,54 +530,7 @@
     "valid": {
       "rules": [
         {
-          "required": true,
-          "message": "托管费率%不能为空"
-        },
-        {
           "pattern": "^[0-9]{1,3}$",
-          "message": "数据格式不对"
-        }
-      ]
-    },
-    "type": "input"
-  },
-  {
-    "name": "募集起始日期（从）",
-    "value": "fundraisestartDate",
-    "valid": {
-      "rules": [
-        {
-          "pattern": "^[0-9]{8}$",
-          "message": "日期格式应为YYYYMMDD"
-        }
-      ]
-    },
-    "type": "input"
-  },
-  {
-    "name": "募集起始日期（到）",
-    "value": "fundraiseendDate",
-    "valid": {
-      "rules": [
-        {
-          "pattern": "^[0-9]{8}$",
-          "message": "日期格式应为YYYYMMDD"
-        }
-      ]
-    },
-    "type": "input"
-  },
-  {
-    "name": "计划募集金额（元）",
-    "value": "planfundraiseAmount",
-    "valid": {
-      "rules": [
-        {
-          "required": true,
-          "message": "计划募集金额（元）不能为空"
-        },
-        {
-          "pattern": "^[0-9]{1,}[.]{0,1}[0-9]{0,}$",
           "message": "数据格式不对"
         }
       ]
@@ -474,19 +568,6 @@
     "type": "input"
   },
   {
-    "name": "产品风险等级",
-    "value": "riskLevel",
-    "valid": {
-      "rules": [
-        {
-          "required": true,
-          "message": "产品风险等级不能为空"
-        }
-      ]
-    },
-    "type": "select"
-  },
-  {
     "name": "发行机构提前终止权标识",
     "value": "terminationSign",
     "valid": {},
@@ -515,10 +596,6 @@
     "value": "investmentRate",
     "valid": {
       "rules": [
-        {
-          "required": true,
-          "message": "投资管理费率%不能为空"
-        },
         {
           "pattern": "^[0-9]{1,3}$",
           "message": "数据格式不对"
@@ -576,46 +653,10 @@
     "type": "input"
   },
   {
-    "name": "备注",
-    "value": "remark",
-    "valid": {},
-    "type": "input"
-  },
-  {
-    "name": "产品登记编码",
-    "value": "registerCode",
-    "valid": {
-      "rules": [
-        {
-          "required": true,
-          "message": "产品登记编码不能为空"
-        }
-      ]
-    },
-    "type": "input"
-  },
-  {
-    "name": "理财产品代码",
-    "value": "productCode",
-    "valid": {
-      "rules": [
-        {
-          "required": true,
-          "message": "理财产品代码不能为空"
-        }
-      ]
-    },
-    "type": "input"
-  },
-  {
     "name": "产品起始日期",
     "value": "productstartDate",
     "valid": {
       "rules": [
-        {
-          "required": true,
-          "message": "产品起始日期不能为空"
-        },
         {
           "pattern": "^[0-9]{8}$",
           "message": "日期格式应为YYYYMMDD"
@@ -629,10 +670,6 @@
     "value": "productendDate",
     "valid": {
       "rules": [
-        {
-          "required": true,
-          "message": "产品终止日期不能为空"
-        },
         {
           "pattern": "^[0-9]{8}$",
           "message": "日期格式应为YYYYMMDD"
@@ -659,10 +696,6 @@
     "valid": {
       "rules": [
         {
-          "required": true,
-          "message": "预计客户最低年收益率%不能为空"
-        },
-        {
           "pattern": "^[0-9]{1,3}$",
           "message": "数据格式不对"
         }
@@ -675,10 +708,6 @@
     "value": "maxApy",
     "valid": {
       "rules": [
-        {
-          "required": true,
-          "message": "预计客户最高年收益率%不能为空"
-        },
         {
           "pattern": "^[0-9]{1,3}$",
           "message": "数据格式不对"
@@ -693,10 +722,6 @@
     "valid": {
       "rules": [
         {
-          "required": true,
-          "message": "平均预计客户年收益率%不能为空"
-        },
-        {
           "pattern": "^[0-9]{1,3}$",
           "message": "数据格式不对"
         }
@@ -709,12 +734,6 @@
     "value": "yieldinstructions",
     "valid": {},
     "type": "input"
-  },
-  {
-    "name": "开放模式",
-    "value": "openMode",
-    "valid": {},
-    "type": "select"
   },
   {
     "name": "规律开放周期",
@@ -772,154 +791,9 @@
     "type": "input"
   },
   {
-    "name": "会员名称",
-    "value": "organName",
-    "valid": {
-      "rules": [
-        {
-          "required": true,
-          "message": "会员名称不能为空"
-        }
-      ]
-    },
-    "type": "input"
-  },
-  {
-    "name": "预发行截止日",
-    "value": "advanceDeadline",
+    "name": "备注",
+    "value": "remark",
     "valid": {},
-    "type": "input"
-  },
-  {
-    "name": "产品附件",
-    "value": "files",
-    "valid": {
-      "rules": [
-        {
-          "required": true,
-          "message": "产品附件不能为空"
-        }
-      ]
-    },
-    "type": "input"
-  },
-  {
-    "name": "产品状态",
-    "value": "productStatus",
-    "valid": {},
-    "type": "select"
-  },
-  {
-    "name": "审核状态",
-    "value": "reviewStatus",
-    "valid": {},
-    "type": "select"
-  },
-  {
-    "name": "产品编号",
-    "value": "productNum",
-    "valid": {
-      "rules": [
-        {
-          "required": true,
-          "message": "产品编号不能为空"
-        }
-      ]
-    },
-    "type": "input"
-  },
-  {
-    "name": "代销额度",
-    "value": "saleLimit",
-    "valid": {
-      "rules": [
-        {
-          "required": true,
-          "message": "代销额度不能为空"
-        },
-        {
-          "pattern": "^[0-9]{1,}$",
-          "message": "代销额度格式不对"
-        }
-      ]
-    },
-    "type": "input"
-  },
-  {
-    "name": "发布时间",
-    "value": "releaseTime",
-    "valid": {
-      "rules": [
-        {
-          "required": true,
-          "message": "发布时间不能为空"
-        }
-      ]
-    },
-    "type": "input"
-  },
-  {
-    "name": "关键节点",
-    "value": "keyNode",
-    "valid": {
-      "rules": [
-        {
-          "required": true,
-          "message": "关键节点不能为空"
-        }
-      ]
-    },
-    "type": "input"
-  },
-  {
-    "name": "已售额度",
-    "value": "soldLimit",
-    "valid": {
-      "rules": [
-        {
-          "required": true,
-          "message": "已售额度不能为空"
-        },
-        {
-          "pattern": "^[0-9]{1,}$",
-          "message": "已售额度格式不对"
-        }
-      ]
-    },
-    "type": "input"
-  },
-  {
-    "name": "产品总规模",
-    "value": "productSize",
-    "valid": {
-      "rules": [
-        {
-          "required": true,
-          "message": "产品总规模不能为空"
-        },
-        {
-          "pattern": "^[0-9]{1,}$",
-          "message": "格式不对"
-        }
-      ]
-    },
-    "type": "input"
-  },
-  {
-    "name": "平台销售额度",
-    "value": "platformsalesLimit",
-    "valid": {
-      "rules": [
-        {
-          "required": true,
-          "message": "平台销售额度不能为空"
-        },
-        {
-          "pattern": "^[0-9]{1,}$",
-          "message": "平台销售额度格式不对"
-        }
-      ]
-    },
     "type": "input"
   }
 ]

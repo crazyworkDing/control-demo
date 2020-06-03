@@ -32,7 +32,7 @@
               <!-- <a @click="handleToggleSearch" style="margin-left: 8px">
                 {{ toggleSearchStatus ? '收起' : '展开' }}
                 <a-icon :type="toggleSearchStatus ? 'up' : 'down'" />
-              </a> -->
+              </a>-->
             </span>
           </a-col>
         </a-row>
@@ -87,21 +87,29 @@
 
         <span slot="action" slot-scope="text, record">
           <a @click="handlePass(record)">审核</a>
+          <a @click="detail(record)" class="ml20">审核详情</a>
         </span>
       </a-table>
     </div>
 
     <user-modal ref="usermodalForm" @ok="modalFormOk"></user-modal>
     <organ-modal ref="organmodalForm" @ok="modalFormOk"></organ-modal>
+    <completed-product-modal ref="modalForm" @ok="modalFormOk"></completed-product-modal>
+    <detail-modal ref="detailmodalForm" @ok="modalFormOk"></detail-modal>
   </a-card>
 </template>
 
 <script>
 import { JeecgListMixin } from '@/mixins/JeecgListMixin'
 import JDictSelectTag from '@/components/dict/JDictSelectTag.vue'
+import CompletedProductModal from './modules/CompletedProductModal'
+import DetailModal from './modules/DetailModal'
 import UserModal from './modules/UserModal'
 import OrganModal from './modules/OrganModal'
 import { queryProcess } from '@/api/api'
+import { getAction } from "@api/manage";
+
+import axios from 'axios'
 
 export default {
   name: 'ZxProcessContentList',
@@ -109,7 +117,9 @@ export default {
   components: {
     JDictSelectTag,
     UserModal,
-    OrganModal
+    OrganModal,
+    CompletedProductModal,
+    DetailModal
   },
   data() {
     return {
@@ -149,13 +159,24 @@ export default {
         }
       ],
       url: {
-        list: '/sys/process/noDonelist'
+        list: '/sys/process/noDonelist',
+        detailList: '/sys/process/queryProcesss'
       },
-      dictOptions: {}
+      dictOptions: {},
     }
   },
   computed: {},
   methods: {
+    detail(data) {
+      getAction(this.url.detailList, {workId: data.workid}).then(res => {
+        if (res.success) {
+          console.log(res.result)
+          this.$refs.detailmodalForm.edit(res.result)
+        } else {
+          this.$message.error(res.message)
+        }
+      })
+    },
     initDictConfig() {},
     handlePass: function(rec) {
       let record = rec
@@ -164,7 +185,7 @@ export default {
         queryProcess({ id: record.id }).then(res => {
           if (res.success) {
             record = res.result.object
-            record = Object.assign(record, {dataId: rec.id, review: res.result.review, action: rec.action_dictText})
+            record = Object.assign(record, { dataId: rec.id, review: res.result.review, action: rec.action_dictText })
             this.$refs.usermodalForm.edit(record)
             this.$refs.usermodalForm.title = '审核'
             this.$refs.usermodalForm.disableSubmit = false
@@ -179,7 +200,11 @@ export default {
         queryProcess({ id: record.id }).then(res => {
           if (res.success) {
             record = res.result.content
-            record = Object.assign(JSON.parse(record), {dataId: rec.id, review: res.result.review, action: rec.action_dictText})
+            record = Object.assign(JSON.parse(record), {
+              dataId: rec.id,
+              review: res.result.review,
+              action: rec.action_dictText
+            })
             this.$refs.organmodalForm.edit(record)
             this.$refs.organmodalForm.title = '审核'
             this.$refs.organmodalForm.disableSubmit = false
@@ -188,6 +213,36 @@ export default {
           }
         }),
           (this.$refs.organmodalForm.disableSubmit = false)
+      }
+
+      if (record.type == '3') {
+        record = JSON.parse(record.content)
+        record = Object.assign(record, { dataId: rec.id, action: rec.action_dictText, workStatus: rec.workStatus })
+        switch(record.productStatus) {
+          case 'B':
+            axios.get('/modalStart.json').then(res2 => {
+              this.$refs.modalForm.edit(record, res2.data);
+            })
+            break;
+          case "C":
+            axios.get('/modalRaise.json').then(res2 => {
+              this.$refs.modalForm.edit(record, res2.data);
+            })
+            break;
+          case "M":
+            axios.get('/modalEnd.json').then(res2 => {
+              this.$refs.modalForm.edit(record, res2.data);
+            })
+            break;
+          case "F":
+            break;
+          default:
+            break;
+        }
+        this.$refs.modalForm.title = '审核'
+        this.$refs.modalForm.disabled = true;
+      } else {
+        console.log(res.message)
       }
     }
   }
